@@ -14,6 +14,9 @@ class ThemeSetup{
         description: "Theme 3 ",
         data: ThemeData(  // Real theme data
           primaryColor: Colors.deepPurple,
+          shadowColor: Colors.deepPurple,
+
+
 
           //    accentColor: Colors.red,
           backgroundColor: Colors.white,
