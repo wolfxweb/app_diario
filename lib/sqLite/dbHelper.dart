@@ -6,7 +6,9 @@ import 'package:sqflite/sqflite.dart';
 
 
 class DbHelper{
+
   static final DbHelper _instance = DbHelper.getInstance();
+
   DbHelper.getInstance();
 
   factory DbHelper() => _instance;
