@@ -46,7 +46,14 @@ dev_dependencies:
   rxdart: ^0.27.4
   sqflite: ^2.0.3+1
   dart_date: ^1.1.1
+  universal_html: ^2.0.8
+  youtube_player_flutter_quill: ^8.2.2
+  cupertino_icons: ^1.0.4
+  path_provider: ^2.0.11
+  filesystem_picker: ^2.0.0
+  file_picker: ^4.6.1
   flutter_quill: ^5.4.1
+
   flutter_reaction_button: ^2.0.1+2
 
 

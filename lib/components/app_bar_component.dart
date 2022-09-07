@@ -1,3 +1,4 @@
+import 'package:app_diario/templates/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:theme_provider/theme_provider.dart';
 
@@ -17,9 +18,16 @@ class AppBarComponete {
       actions: [
         IconButton(
           onPressed: () {
+            /*
+            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
+            return  HomePage();
+            }));
+             */
+         // Navigator.push(context, HomePage());
+        //    Navigator.pop(ctx, MediaPickSetting.Video),
             ThemeProvider.controllerOf(context).nextTheme();
           },
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
         ),
       ],
     );
