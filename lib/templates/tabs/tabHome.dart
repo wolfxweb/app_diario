@@ -1,5 +1,6 @@
 import 'package:app_diario/bloc/blocNote.dart';
 import 'package:app_diario/templates/pages/note_edit.dart';
+import 'package:app_diario/templates/read_only_page.dart';
 import 'package:flutter/material.dart';
 
 class TabHome extends StatefulWidget {
@@ -102,7 +103,8 @@ class _TabHomeState extends State<TabHome> {
                                           child: IconButton(
                                               onPressed: () {
                                                 Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
-                                                  return   NoteEdit(note: snapshot.data[i],);
+                                                //  return   NoteEdit(note: snapshot.data[i],);
+                                                 return  ReadOnlyPage(snapshot.data[i]);
                                                 }));
                                               },
                                               icon: const Icon(Icons.edit)),

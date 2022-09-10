@@ -18,14 +18,12 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     var header = AppBarComponete();
     return DefaultTabController(
-      length: 5,
+      length: 3,
       child: Scaffold(
           appBar:  header.getAppBar(AppLocalizations.of(context)!.app_bar_title, context),
           body: const TabBarView(
             children: [
               TabHome(),
-              TabAgenda(),
-              TabNote(),
               TabRelatorios(),
               TabConfiguracoes(),
             ],

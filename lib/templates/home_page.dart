@@ -1,3 +1,4 @@
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -8,14 +9,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
+import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tuple/tuple.dart';
 
-//import '../universal_ui/universal_ui.dart';
-//import 'read_only_page.dart';
+import 'universal_ui.dart';
+import 'read_only_page.dart';
 
 class HomePage extends StatefulWidget {
+  @override
+  HomePage(){
+
+  }
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -23,8 +29,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   QuillController? _controller;
   final FocusNode _focusNode = FocusNode();
-
-  get defaultEmbedBuilderWeb => null;
 
   @override
   void initState() {
@@ -67,6 +71,10 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             onPressed: () => _addEditNote(context),
             icon: const Icon(Icons.note_add),
+          ),
+          IconButton(
+            onPressed: () => _addEditNote(context),
+            icon: const Icon(Icons.add),
           ),
         ],
       ),
@@ -121,7 +129,10 @@ class _HomePageState extends State<HomePage> {
             null),
         sizeSmall: const TextStyle(fontSize: 9),
       ),
-     // customElementsEmbedBuilder: customElementsEmbedBuilder,
+      embedBuilders: [
+        ...FlutterQuillEmbeds.builders(),
+        NotesEmbedBuilder(addEditNote: _addEditNote)
+      ],
     );
     if (kIsWeb) {
       quillEditor = QuillEditor(
@@ -147,34 +158,41 @@ class _HomePageState extends State<HomePage> {
                 null),
             sizeSmall: const TextStyle(fontSize: 9),
           ),
-          embedBuilder: defaultEmbedBuilderWeb);
+         // embedBuilders: defaultEmbedBuildersWeb
+      );
     }
     var toolbar = QuillToolbar.basic(
       controller: _controller!,
-      // provide a callback to enable picking images from device.
-      // if omit, "image" button only allows adding images from url.
-      // same goes for videos.
-      onImagePickCallback: _onImagePickCallback,
-      onVideoPickCallback: _onVideoPickCallback,
-      // uncomment to provide a custom "pick from" dialog.
-      // mediaPickSettingSelector: _selectMediaPickSetting,
-      // uncomment to provide a custom "pick from" dialog.
-      // cameraPickSettingSelector: _selectCameraPickSetting,
+      embedButtons: FlutterQuillEmbeds.buttons(
+        // provide a callback to enable picking images from device.
+        // if omit, "image" button only allows adding images from url.
+        // same goes for videos.
+        onImagePickCallback: _onImagePickCallback,
+        onVideoPickCallback: _onVideoPickCallback,
+        // uncomment to provide a custom "pick from" dialog.
+        // mediaPickSettingSelector: _selectMediaPickSetting,
+        // uncomment to provide a custom "pick from" dialog.
+        // cameraPickSettingSelector: _selectCameraPickSetting,
+      ),
       showAlignmentButtons: true,
     );
     if (kIsWeb) {
       toolbar = QuillToolbar.basic(
         controller: _controller!,
-        onImagePickCallback: _onImagePickCallback,
-        webImagePickImpl: _webImagePickImpl,
+        embedButtons: FlutterQuillEmbeds.buttons(
+          onImagePickCallback: _onImagePickCallback,
+          webImagePickImpl: _webImagePickImpl,
+        ),
         showAlignmentButtons: true,
       );
     }
     if (_isDesktop()) {
       toolbar = QuillToolbar.basic(
         controller: _controller!,
-        onImagePickCallback: _onImagePickCallback,
-        filePickImpl: openFileSystemPickerForDesktop,
+        embedButtons: FlutterQuillEmbeds.buttons(
+          onImagePickCallback: _onImagePickCallback,
+          filePickImpl: openFileSystemPickerForDesktop,
+        ),
         showAlignmentButtons: true,
       );
     }
@@ -221,7 +239,8 @@ class _HomePageState extends State<HomePage> {
   Future<String> _onImagePickCallback(File file) async {
     // Copies the picked file from temporary cache to applications directory
     final appDocDir = await getApplicationDocumentsDirectory();
-    final copiedFile = await file.copy('${appDocDir.path}/${basename(file.path)}');
+    final copiedFile =
+    await file.copy('${appDocDir.path}/${basename(file.path)}');
     return copiedFile.path.toString();
   }
 
@@ -278,29 +297,24 @@ class _HomePageState extends State<HomePage> {
   Future<MediaPickSetting?> _selectCameraPickSetting(BuildContext context) =>
       showDialog<MediaPickSetting>(
         context: context,
-        builder: (ctx) =>
-            AlertDialog(
-              contentPadding: EdgeInsets.zero,
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextButton.icon(
-                    icon: const Icon(Icons.camera),
-                    label: const Text('Capture a photo'),
-                    onPressed: () =>
-                        print("Capture a video"),
-                       // Navigator.pop(ctx, MediaPickSetting.Camera),
-                  ),
-                  TextButton.icon(
-                    icon: const Icon(Icons.video_call),
-                    label: const Text('Capture a video'),
-                    onPressed: () =>
-                        print("Capture a video")
-                       // Navigator.pop(ctx, MediaPickSetting.Video),
-                  )
-                ],
+        builder: (ctx) => AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextButton.icon(
+                icon: const Icon(Icons.camera),
+                label: const Text('Capture a photo'),
+                onPressed: () => Navigator.pop(ctx, MediaPickSetting.Camera),
               ),
-            ),
+              TextButton.icon(
+                icon: const Icon(Icons.video_call),
+                label: const Text('Capture a video'),
+                onPressed: () => Navigator.pop(ctx, MediaPickSetting.Video),
+              )
+            ],
+          ),
+        ),
       );
 
   Widget _buildMenuBar(BuildContext context) {
@@ -336,15 +350,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _readOnly() {
-    /*
+
     Navigator.push(
       super.context,
       MaterialPageRoute(
-      //  builder: (context) => ReadOnlyPage(),
+        builder: (context) => ReadOnlyPage(""),
       ),
     );
 
-     */
   }
 
   Future<void> _addEditNote(BuildContext context, {Document? document}) async {
@@ -392,37 +405,41 @@ class _HomePageState extends State<HomePage> {
       controller.replaceText(index, length, block, null);
     }
   }
+}
 
-  Widget customElementsEmbedBuilder(
+class NotesEmbedBuilder implements EmbedBuilder {
+  NotesEmbedBuilder({required this.addEditNote});
+
+  Future<void> Function(BuildContext context, {Document? document}) addEditNote;
+
+  @override
+  String get key => 'notes';
+
+  @override
+  Widget build(
       BuildContext context,
       QuillController controller,
-      CustomBlockEmbed block,
+      Embed node,
       bool readOnly,
-      void Function(GlobalKey videoContainerKey)? onVideoInit,
       ) {
-    switch (block.type) {
-      case 'notes':
-        final notes = NotesBlockEmbed(block.data).document;
+    final notes = NotesBlockEmbed(node.value.data).document;
 
-        return Material(
-          color: Colors.transparent,
-          child: ListTile(
-            title: Text(
-              notes.toPlainText().replaceAll('\n', ' '),
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-            ),
-            leading: const Icon(Icons.notes),
-            onTap: () => _addEditNote(context, document: notes),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-              side: const BorderSide(color: Colors.grey),
-            ),
-          ),
-        );
-      default:
-        return const SizedBox();
-    }
+    return Material(
+      color: Colors.transparent,
+      child: ListTile(
+        title: Text(
+          notes.toPlainText().replaceAll('\n', ' '),
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
+        ),
+        leading: const Icon(Icons.notes),
+        onTap: () => addEditNote(context, document: notes),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: const BorderSide(color: Colors.grey),
+        ),
+      ),
+    );
   }
 }
 

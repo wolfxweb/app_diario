@@ -20,14 +20,14 @@ class _ButtomNavidateBarComponentState
           icon: Icons.auto_stories,
           title: AppLocalizations.of(context)!.menu_button_title_1,
         ),
-        TabItem(
+     /*   TabItem(
           icon: Icons.calendar_month,
           title: AppLocalizations.of(context)!.menu_button_title_2,
         ),
         TabItem(
           icon: Icons.add,
           title: AppLocalizations.of(context)!.menu_button_title_3,
-        ),
+        ),*/
         TabItem(
           icon: Icons.message,
           title: AppLocalizations.of(context)!.menu_button_title_4,

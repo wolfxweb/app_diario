@@ -44,7 +44,7 @@ packages:
     source: hosted
     version: "2.1.0"
   characters:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: characters
       url: "https://pub.dartlang.org"
@@ -65,7 +65,7 @@ packages:
     source: hosted
     version: "1.1.0"
   collection:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: collection
       url: "https://pub.dartlang.org"
@@ -121,7 +121,7 @@ packages:
     source: hosted
     version: "1.1.1"
   device_info_plus:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: device_info_plus
       url: "https://pub.dartlang.org"
@@ -163,7 +163,7 @@ packages:
     source: hosted
     version: "2.1.1"
   diff_match_patch:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: diff_match_patch
       url: "https://pub.dartlang.org"
@@ -217,7 +217,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_colorpicker:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: flutter_colorpicker
       url: "https://pub.dartlang.org"
@@ -231,7 +231,7 @@ packages:
     source: hosted
     version: "5.4.6"
   flutter_keyboard_visibility:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: flutter_keyboard_visibility
       url: "https://pub.dartlang.org"
@@ -283,7 +283,14 @@ packages:
       name: flutter_quill
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.4.2"
+    version: "6.0.0"
+  flutter_quill_extensions:
+    dependency: "direct dev"
+    description:
+      name: flutter_quill_extensions
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   flutter_reaction_button:
     dependency: "direct dev"
     description:
@@ -304,7 +311,7 @@ packages:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.4"
+    version: "1.1.5"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -372,7 +379,7 @@ packages:
     source: hosted
     version: "4.0.1"
   i18n_extension:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: i18n_extension
       url: "https://pub.dartlang.org"
@@ -391,7 +398,7 @@ packages:
       name: image_picker_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.5+2"
+    version: "0.8.5+3"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -575,7 +582,7 @@ packages:
     source: hosted
     version: "0.14.0"
   platform:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: platform
       url: "https://pub.dartlang.org"
@@ -610,7 +617,7 @@ packages:
     source: hosted
     version: "2.1.1"
   quiver:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: quiver
       url: "https://pub.dartlang.org"
@@ -636,7 +643,7 @@ packages:
       name: shared_preferences_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.12"
+    version: "2.0.13"
   shared_preferences_ios:
     dependency: transitive
     description:
@@ -725,7 +732,7 @@ packages:
       name: stacked
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.15+1"
+    version: "3.0.0"
   stacked_core:
     dependency: transitive
     description:
@@ -797,7 +804,7 @@ packages:
     source: hosted
     version: "3.3.0"
   tuple:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: tuple
       url: "https://pub.dartlang.org"
@@ -825,7 +832,7 @@ packages:
     source: hosted
     version: "2.0.4"
   url_launcher:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: url_launcher
       url: "https://pub.dartlang.org"
@@ -837,7 +844,7 @@ packages:
       name: url_launcher_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.17"
+    version: "6.0.18"
   url_launcher_ios:
     dependency: transitive
     description:
