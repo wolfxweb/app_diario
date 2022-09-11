@@ -21,14 +21,16 @@ class Home extends StatelessWidget {
       length: 3,
       child: Scaffold(
           appBar:  header.getAppBar(AppLocalizations.of(context)!.app_bar_title, context),
-          body: const TabBarView(
+          body: TabHome(),
+        /*  body: const TabBarView(
             children: [
               TabHome(),
               TabRelatorios(),
               TabConfiguracoes(),
             ],
           ),
-          bottomNavigationBar: const ButtomNavidateBarComponent(),
+         */
+        //  bottomNavigationBar: const ButtomNavidateBarComponent(),
       ),
     );
    }

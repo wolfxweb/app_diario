@@ -14,25 +14,33 @@ class TabConfiguracoes extends StatefulWidget {
 class _TabConfiguracoesState extends State<TabConfiguracoes> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          ElevatedButton(
-            child: Text('Themas'),
-            onPressed: (){
-              ThemeProvider.controllerOf(context).nextTheme();
-            },
-          ),
-          ElevatedButton(
-            child: Text('not'),
-            onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
-                return  HomePage();
-              }));
-            },
-          )
-        ],
-      )
+
+    return Scaffold(
+      appBar: AppBar(
+       // elevation: 0,
+        centerTitle: false,
+        title: const Text('Configurações',),
+      ),
+      body: Container(
+        child: Column(
+          children: [
+            ElevatedButton(
+              child: Text('Themas'),
+              onPressed: (){
+                ThemeProvider.controllerOf(context).nextTheme();
+              },
+            ),
+            ElevatedButton(
+              child: Text('not'),
+              onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
+                  return  HomePage();
+                }));
+              },
+            )
+          ],
+        )
+      ),
     );
   }
 }
