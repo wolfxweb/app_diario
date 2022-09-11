@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:app_diario/bloc/blocNote.dart';
 import 'package:app_diario/templates/pages/note_edit.dart';
 import 'package:app_diario/templates/read_only_page.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:flutter/services.dart';
 
 class TabHome extends StatefulWidget {
   const TabHome({Key? key}) : super(key: key);
@@ -18,16 +21,15 @@ class _TabHomeState extends State<TabHome> {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Container(
+          padding: const EdgeInsets.all(10),
           width: double.infinity,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
+         //   mainAxisSize: MainAxisSize.min,
+        //    crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               FutureBuilder(
                   future: _listaNotas(),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    print('snapshot.data');
-                    print(snapshot.data);
 
                     if (snapshot.hasData) {
                       return SingleChildScrollView(
@@ -36,12 +38,13 @@ class _TabHomeState extends State<TabHome> {
                             shrinkWrap: true,
                             itemCount: snapshot.data.length,
                             itemBuilder: (context, i) {
+                              var anotacao =jsonDecode(snapshot.data[i]['anotacao']);
                               return Card(
                                 child: Container(
-                                  padding: const EdgeInsets.all(8.0),
+                                 // padding: const EdgeInsets.all(6.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
-                                    //  crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         //  mainAxisSize: MainAxisSize.min,
@@ -49,107 +52,47 @@ class _TabHomeState extends State<TabHome> {
                                         crossAxisAlignment:CrossAxisAlignment.center,
                                         children: [
                                           Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 0),
                                             height: 85,
-                                            width: 75,
                                             decoration: const BoxDecoration(
-                                              //  border: Border.all(color: Colors.blueAccent),
-
-                                            ),
+                                                //  border: Border.all(color: Colors.blueAccent),
+                                                ),
                                             child: Column(
                                               //  crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                buildTextDiaAno(snapshot, i,8,10,32),
+                                                buildTextDiaAno(snapshot, i, 8, 10, 32),
                                                 buildTextMes(snapshot, i),
-                                                buildTextDiaAno(snapshot, i,0,4,16),
+                                                buildTextDiaAno(snapshot, i, 0, 4, 16),
                                               ],
                                             ),
                                           ),
-                                          Container(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              snapshot.data[i]['titulo']
-                                                  .toString(),
-                                              textAlign: TextAlign.start,
-                                              style: const TextStyle(
-                                                fontSize: 18,
+                                          Column(
+                                            crossAxisAlignment:CrossAxisAlignment.end,
+                                            children: [
+                                              Container(
+                                                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 0),
+                                                width: MediaQuery.of(context).size.width*0.75,
+                                                // mainAxisSize: MainAxisSize.max,
+                                                child: TextField(
+                                                  controller: TextEditingController(
+                                                      text: anotacao[0]['insert']),
+                                                  maxLines: 3,
+                                                  inputFormatters: [
+                                                    LengthLimitingTextInputFormatter(
+                                                        10),
+                                                  ],
+                                                  decoration: const InputDecoration(
+                                                    border: InputBorder.none,
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                              buildContainerDeleteEdit(context,snapshot,i),
+                                            ],
                                           ),
-                                          Container(
-                                            padding: const EdgeInsets.all(8.0),
-                                            // height: 75,
-                                            // width: 50,
 
-                                            decoration: const BoxDecoration(
-                                                //  border: Border.all( color: Colors.blueAccent),
-                                                ),
-                                            child: Column(
-                                              children: [
-                                                IconButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context).push(
-                                                          MaterialPageRoute(
-                                                              builder:
-                                                                  (BuildContext
-                                                                      context) {
-                                                        //  return   NoteEdit(note: snapshot.data[i],);
-                                                        return ReadOnlyPage(
-                                                            snapshot.data[i]);
-                                                      }));
-                                                    },
-                                                    icon:
-                                                        const Icon(Icons.edit)),
-                                                IconButton(
-                                                    onPressed: () {
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (BuildContext
-                                                            context) {
-                                                          return AlertDialog(
-                                                            title: Text("Esta açõe e irevesivel."),
-                                                            content: Text("Deseja continuar?"),
-                                                            actions: [
-                                                              // cancelButton,
-                                                              // continueButton,
-                                                              TextButton(
-                                                                child:
-                                                                    Text("Não"),
-                                                                onPressed: () {
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                },
-                                                              ),
-                                                              TextButton(
-                                                                child:
-                                                                    Text("Sim"),
-                                                                onPressed: () {
-                                                                  var response =
-                                                                      blocNote.deleteNote(
-                                                                          snapshot.data[i]
-                                                                              [
-                                                                              'id']);
-                                                                  response.then(
-                                                                      (res) {
-                                                                    Navigator.popAndPushNamed(
-                                                                        context,
-                                                                        '/');
-                                                                  });
-                                                                },
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                    icon: const Icon(
-                                                        Icons.delete),
-                                                ),
-                                              ],
-                                            ),
-                                          )
                                         ],
                                       ),
+
                                     ],
                                   ),
                                 ),
@@ -165,7 +108,69 @@ class _TabHomeState extends State<TabHome> {
     );
   }
 
-  Text buildTextDiaAno(AsyncSnapshot<dynamic> snapshot, int i, int inicio, int fim, double sizeFont) {
+  Container buildContainerDeleteEdit(  BuildContext context, AsyncSnapshot<dynamic> snapshot, int i) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      // height: 75,
+      // width: 50,
+
+      decoration: const BoxDecoration(
+          //  border: Border.all( color: Colors.blueAccent),
+          ),
+      child: Row(
+        children: [
+
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text("Esta açõe e irevesivel."),
+                    content: Text("Deseja continuar?"),
+                    actions: [
+                      // cancelButton,
+                      // continueButton,
+                      TextButton(
+                        child: Text("Não"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: Text("Sim"),
+                        onPressed: () {
+                          var response =
+                              blocNote.deleteNote(snapshot.data[i]['id']);
+                          response.then((res) {
+                            Navigator.popAndPushNamed(context, '/');
+                          });
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            icon: const Icon(Icons.delete),
+
+          ),
+          IconButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) {
+                  //  return   NoteEdit(note: snapshot.data[i],);
+                  return ReadOnlyPage(snapshot.data[i]);
+                }));
+              },
+              icon: const Icon(Icons.edit)),
+        ],
+      ),
+    );
+  }
+
+  Text buildTextDiaAno(AsyncSnapshot<dynamic> snapshot, int i, int inicio,
+      int fim, double sizeFont) {
     return Text(
       snapshot.data[i]['data_hora'].toString().substring(inicio, fim),
       style: TextStyle(
@@ -175,34 +180,35 @@ class _TabHomeState extends State<TabHome> {
   }
 
   Text buildTextMes(AsyncSnapshot<dynamic> snapshot, int i) {
-    var mesRef  = snapshot.data[i]['data_hora'].toString().substring(5, 7);
+    var mesRef = snapshot.data[i]['data_hora'].toString().substring(5, 7);
     var mes;
-    if(mesRef == '01' ){
+    if (mesRef == '01') {
       mes = 'jan';
-    }else if(mesRef == '02' ){
+    } else if (mesRef == '02') {
       mes = 'fev';
-    }else if(mesRef == '03' ){
+    } else if (mesRef == '03') {
       mes = 'mar';
-    }else if(mesRef == '04' ){
+    } else if (mesRef == '04') {
       mes = 'abr';
-    }else if(mesRef == '05' ){
+    } else if (mesRef == '05') {
       mes = 'mai';
-    }else if(mesRef == '06' ){
+    } else if (mesRef == '06') {
       mes = 'jun';
-    }else if(mesRef == '07' ){
+    } else if (mesRef == '07') {
       mes = 'jul';
-    }else if(mesRef == '08' ){
+    } else if (mesRef == '08') {
       mes = 'ago';
-    }else if(mesRef == '09' ){
+    } else if (mesRef == '09') {
       mes = 'set';
-    }else if(mesRef == '10' ){
+    } else if (mesRef == '10') {
       mes = 'ou';
-    }else if(mesRef == '11' ){
+    } else if (mesRef == '11') {
       mes = 'nov';
-    }else if(mesRef == '12' ){
+    } else if (mesRef == '12') {
       mes = 'dez';
     }
-    return Text(mes,
+    return Text(
+      mes,
       style: const TextStyle(fontSize: 18),
     );
   }
