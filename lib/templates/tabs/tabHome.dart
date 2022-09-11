@@ -14,108 +14,121 @@ class _TabHomeState extends State<TabHome> {
   var blocNote = BlocNote();
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+
       child: Container(
           width: double.infinity,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               FutureBuilder(
-                  future: blocNote.listaAnotacao(),
+                  future:_listaNotas(),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     print('snapshot.data');
                     print(snapshot.data);
 
                     if (snapshot.hasData) {
-                      return ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, i) {
-                            var dia = snapshot.data[i]['data_hora'].toString();
-                            print('dia');
-                            print(dia);
+                      return SingleChildScrollView(
 
-                            return Card(
-                              child: Container(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
+                        child: ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, i) {
 
-                                //  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          height: 75,
-                                          width: 75,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(color: Colors.blueAccent)
-                                          ),
-                                          child: Column(
-                                          //  crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                snapshot.data[i]['data_hora']
-                                                    .toString()
-                                                    .substring(8, 10),
-                                                style: const TextStyle(
-                                                  fontSize: 35,
+                              return Card(
+                                child: Container(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                  //  crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                      //  mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            height: 75,
+                                            width: 75,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(color: Colors.blueAccent)
+                                            ),
+                                            child: Column(
+                                            //  crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  snapshot.data[i]['data_hora']
+                                                      .toString()
+                                                      .substring(8, 10),
+                                                  style: const TextStyle(
+                                                    fontSize: 35,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                snapshot.data[i]['data_hora']
-                                                            .toString()
-                                                            .substring(5, 7) ==
-                                                        '09'
-                                                    ? 'Set'
-                                                    : '',
-                                                style:
-                                                    const TextStyle(fontSize: 18),
-                                              ),
-                                            ],
+                                                Text(
+                                                  snapshot.data[i]['data_hora']
+                                                              .toString()
+                                                              .substring(5, 7) ==
+                                                          '09'
+                                                      ? 'Set'
+                                                      : '',
+                                                  style:
+                                                      const TextStyle(fontSize: 18),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
+                                          Container(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
 
 
-                                            snapshot.data[i]['titulo'].toString(),
-                                            textAlign: TextAlign.start,
-                                            style: const TextStyle(fontSize: 18,),
+                                              snapshot.data[i]['titulo'].toString(),
+                                              textAlign: TextAlign.start,
+                                              style: const TextStyle(fontSize: 18,),
+                                            ),
                                           ),
-                                        ),
-                                        // Text(snapshot.data[i]['humor'].toString()),
-                                   /*     Text(
-                                          snapshot.data[i]['id'].toString(),
-                                          style: const TextStyle(fontSize: 18),
-                                        ),*/
-                                        Container(
-                                          padding: const EdgeInsets.all(8.0),
-                                          height: 75,
-                                          width: 50,
+                                          Container(
+                                            padding: const EdgeInsets.all(8.0),
+                                           // height: 75,
+                                           // width: 50,
 
-                                          decoration: BoxDecoration(
-                                              border: Border.all(color: Colors.blueAccent)
-                                          ),
-                                          child: IconButton(
-                                              onPressed: () {
-                                                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
-                                                //  return   NoteEdit(note: snapshot.data[i],);
-                                                 return  ReadOnlyPage(snapshot.data[i]);
-                                                }));
-                                              },
-                                              icon: const Icon(Icons.edit)),
-                                        )
-                                      ],
-                                    ),
-                                  ],
+                                            decoration: BoxDecoration(
+                                                border: Border.all(color: Colors.blueAccent)
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                IconButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
+                                                      //  return   NoteEdit(note: snapshot.data[i],);
+                                                       return  ReadOnlyPage(snapshot.data[i]);
+                                                      }));
+                                                    },
+                                                    icon: const Icon(Icons.edit)),
+                                                IconButton(
+                                                    onPressed: () {
+
+                                                     var response =   blocNote.deleteNote(snapshot.data[i]['id']);
+                                                     response.then((res){
+                                                       Navigator.popAndPushNamed(context,'/');
+                                                     });
+
+                                                    },
+                                                    icon: const Icon(Icons.delete)),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          });
+                              );
+                            }),
+                      );
                     } else {
                       return const CircularProgressIndicator();
                     }
@@ -123,5 +136,11 @@ class _TabHomeState extends State<TabHome> {
             ],
           )),
     );
+
+  }
+
+  _listaNotas(){
+
+   return blocNote.listaAnotacao();
   }
 }

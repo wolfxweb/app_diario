@@ -37,6 +37,9 @@ class _NoteState extends State<TabNote> {
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.grey.shade800,
+        leading: IconButton(onPressed: (){
+          Navigator.popAndPushNamed(context,'/');
+        },icon:const Icon(Icons.arrow_back) ,),
         elevation: 0,
         centerTitle: false,
         title: const Text(

@@ -7,6 +7,9 @@ import 'package:theme_provider/theme_provider.dart';
 class AppBarComponete {
   getAppBar(String title, context) {
     return AppBar(
+      leading: IconButton(onPressed: (){
+       // Navigator.popAndPushNamed(context,'/');
+      },icon:const Icon(Icons.person_pin) ,),
       title: Text(
         title,
         style: const TextStyle(
@@ -20,7 +23,6 @@ class AppBarComponete {
       actions: [
         IconButton(
           onPressed: () {
-
             Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
             return  TabNote();
             }));

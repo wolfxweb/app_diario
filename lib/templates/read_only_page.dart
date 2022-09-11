@@ -57,6 +57,9 @@ class _ReadOnlyPageState extends State<ReadOnlyPage> {
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.grey.shade800,
+        leading: IconButton(onPressed: (){
+          Navigator.popAndPushNamed(context,'/');
+        },icon:const Icon(Icons.arrow_back) ,),
         elevation: 0,
         centerTitle: false,
         title: const Text(
@@ -274,8 +277,6 @@ class _ReadOnlyPageState extends State<ReadOnlyPage> {
                     print(_textTitulo.text);
                     var response =  blocNote.saveBlocNote(null,jsonEncode(_textAreaController.document.toDelta().toJson()),humor,_textTitulo.text);
                     response.then((data){
-                      print("data note linha 191");
-                      print(data);
                       _textAreaController.clear();
                       _textTitulo.clear();
                     });

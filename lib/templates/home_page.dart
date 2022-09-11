@@ -84,23 +84,25 @@ class _HomePageState extends State<HomePage> {
         color: Colors.grey.shade800,
         child: _buildMenuBar(context),
       ),
-      body: RawKeyboardListener(
-        focusNode: FocusNode(),
-        onKey: (event) {
-          if (event.data.isControlPressed && event.character == 'b') {
-            if (_controller!
-                .getSelectionStyle()
-                .attributes
-                .keys
-                .contains('bold')) {
-              _controller!
-                  .formatSelection(Attribute.clone(Attribute.bold, null));
-            } else {
-              _controller!.formatSelection(Attribute.bold);
+      body: SingleChildScrollView(
+        child: RawKeyboardListener(
+          focusNode: FocusNode(),
+          onKey: (event) {
+            if (event.data.isControlPressed && event.character == 'b') {
+              if (_controller!
+                  .getSelectionStyle()
+                  .attributes
+                  .keys
+                  .contains('bold')) {
+                _controller!
+                    .formatSelection(Attribute.clone(Attribute.bold, null));
+              } else {
+                _controller!.formatSelection(Attribute.bold);
+              }
             }
-          }
-        },
-        child: _buildWelcomeEditor(context),
+          },
+          child: _buildWelcomeEditor(context),
+        ),
       ),
     );
   }

@@ -44,20 +44,29 @@ class BlocNote implements BlocBase{
      var response = await db.lista();
      List anotacoes =[];
      response.forEach((res){
-
-
-       //  print('res');
-      // print(res);
         anotacoes.add(res);
-
-       // _anotacaoController.add(res);
       });
-
      return anotacoes;
-
    }catch (_) {}
 
  }
+
+ deleteNote(id)async{
+   try{
+       var delete = await db.delete(id);
+
+       delete.then((response){
+         print('response');
+         print(response);
+         listaAnotacao();
+       });
+
+
+   }catch (_) {
+
+   }
+ }
+
 
 
   @override
