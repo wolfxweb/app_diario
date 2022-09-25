@@ -2,10 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:app_diario/bloc/blocNote.dart';
+import 'package:app_diario/components/alert_snack.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_reaction_button/flutter_reaction_button.dart';
+
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
@@ -31,7 +32,7 @@ class ReadOnlyPage extends StatefulWidget {
 
 class _ReadOnlyPageState extends State<ReadOnlyPage> {
   late QuillController _textAreaController;
-  var _textTitulo;
+  var _textTitulo ="";
   var humor ="1";
   var _jsonAnotacao;
   var _id;
@@ -41,7 +42,7 @@ class _ReadOnlyPageState extends State<ReadOnlyPage> {
     print('widget.note');
     print(widget.note);
     _jsonAnotacao = jsonDecode(widget.note['anotacao']);
-    _textTitulo = TextEditingController(text: widget.note['titulo']);// this.note['titulo'];
+   // _textTitulo = TextEditingController(text: widget.note['titulo']);// this.note['titulo'];
   //  _humor = widget.note['humor'];
     _id = widget.note['id'];
     _textAreaController = QuillController(
@@ -71,10 +72,12 @@ class _ReadOnlyPageState extends State<ReadOnlyPage> {
               var isText = _textAreaController.document.isEmpty();
               if (!isText) {
                 var blocNote = BlocNote();
-                var response =  blocNote.saveBlocNote(_id,jsonEncode(_textAreaController.document.toDelta().toJson()),humor,_textTitulo.text);
+                var response =  blocNote.saveBlocNote(_id,jsonEncode(_textAreaController.document.toDelta().toJson()),humor,_textTitulo);
                 response.then((data){
-                  _textAreaController.clear();
-                  _textTitulo.clear();
+                //  _textAreaController.clear();
+                 // _textTitulo.clear();
+                  var alert = AlertSnackBar();
+                  alert.alertSnackBar(context, Colors.green,'Alterado com sucesso');
                 });
               }
             },
@@ -93,7 +96,7 @@ class _ReadOnlyPageState extends State<ReadOnlyPage> {
               child: Column(
                 children: [
                   //  buildComoEstou(),
-                  Container(
+           /*       Container(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                         controller: _textTitulo,
@@ -103,7 +106,7 @@ class _ReadOnlyPageState extends State<ReadOnlyPage> {
                           hintText: 'Digite tiutlo',
                         )
                     ),
-                  ),
+                  ),*/
                   Expanded(
                     child: Container(
                       //  padding: const EdgeInsets.all(8),
@@ -273,12 +276,10 @@ class _ReadOnlyPageState extends State<ReadOnlyPage> {
                   var isText = _textAreaController.document.isEmpty();
                   if (!isText) {
                     var blocNote = BlocNote();
-
-                    print(_textTitulo.text);
-                    var response =  blocNote.saveBlocNote(null,jsonEncode(_textAreaController.document.toDelta().toJson()),humor,_textTitulo.text);
+                    var response =  blocNote.saveBlocNote(null,jsonEncode(_textAreaController.document.toDelta().toJson()),humor,_textTitulo);
                     response.then((data){
                       _textAreaController.clear();
-                      _textTitulo.clear();
+                     // _textTitulo.clear();
                     });
                   }
                 }, icon: Icon(Icons.check))

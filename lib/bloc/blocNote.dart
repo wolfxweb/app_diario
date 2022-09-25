@@ -24,6 +24,7 @@ class BlocNote implements BlocBase{
 
   BlocNote(){
     db =  DbNote();
+    listaAnotacao();
   }
 
 
@@ -46,11 +47,25 @@ class BlocNote implements BlocBase{
      response.forEach((res){
         anotacoes.add(res);
       });
+     _anotacaoController.add(anotacoes);
+
      return anotacoes;
    }catch (_) {}
 
  }
+  listaAgrupadaData()async{
 
+    try{
+      var response = await db.listaAgrupadaData();
+      List anotacoes =[];
+      response.forEach((res){
+        anotacoes.add(res);
+      });
+    //  _anotacaoController.add(anotacoes);
+      return anotacoes;
+    }catch (_) {}
+
+  }
  deleteNote(id)async{
    try{
        var delete = await db.delete(id);

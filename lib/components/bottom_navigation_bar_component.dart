@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+//import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ButtomNavidateBarComponent extends StatefulWidget {
@@ -12,7 +12,8 @@ class _ButtomNavidateBarComponentState
     extends State<ButtomNavidateBarComponent> {
   @override
   Widget build(BuildContext context) {
-    return ConvexAppBar(
+    return Container();
+  /*  return ConvexAppBar(
       backgroundColor: Theme.of(context).primaryColor,
       elevation: 5,
       items: [
@@ -41,6 +42,6 @@ class _ButtomNavidateBarComponentState
       onTap: (int i) {
         print('click index=$i');
       },
-    );
+    );*/
   }
 }

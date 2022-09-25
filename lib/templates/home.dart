@@ -17,6 +17,11 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var header = AppBarComponete();
+
+    var cor = Theme.of(context).primaryColor;
+    if(Theme.of(context).primaryColor != '0xff424242'){
+      cor = Colors.white;
+    }
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -30,7 +35,17 @@ class Home extends StatelessWidget {
             ],
           ),
          */
-        //  bottomNavigationBar: const ButtomNavidateBarComponent(),
+         // bottomNavigationBar: const ButtomNavidateBarComponent(),
+        floatingActionButton:FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
+              return  TabNote();
+            }));
+          },
+          backgroundColor: Theme.of(context).primaryColor,
+
+          child:  Icon(Icons.add, color: cor,),
+        ),
       ),
     );
    }

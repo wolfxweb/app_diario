@@ -1,11 +1,15 @@
 import 'dart:convert';
 
 import 'package:app_diario/bloc/blocNote.dart';
+import 'package:app_diario/components/alert_snack.dart';
 import 'package:app_diario/templates/pages/note_edit.dart';
 import 'package:app_diario/templates/read_only_page.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_date_picker_timeline/flutter_date_picker_timeline.dart';
+import 'package:date_picker_timeline/date_picker_timeline.dart';
+
 
 class TabHome extends StatefulWidget {
   const TabHome({Key? key}) : super(key: key);
@@ -16,99 +20,211 @@ class TabHome extends StatefulWidget {
 
 class _TabHomeState extends State<TabHome> {
   var blocNote = BlocNote();
+   DatePickerController _controller = DatePickerController();
+
+  DateTime _selectedValue2 = DateTime.now();
+  DateTime _selectedValue = DateTime.now();
+
+  void initState() {
+    _selectedValue = DateTime.now();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+
+      return SingleChildScrollView(
+
       scrollDirection: Axis.vertical,
       child: Container(
           padding: const EdgeInsets.all(10),
           width: double.infinity,
           child: Column(
-         //   mainAxisSize: MainAxisSize.min,
-        //    crossAxisAlignment: CrossAxisAlignment.center,
+            //   mainAxisSize: MainAxisSize.min,
+            //    crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              FutureBuilder(
-                  future: _listaNotas(),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+            //  buildData(),
+              SizedBox(
+                //  width: 20,
+                height: 10,
+                child:Container() ,
+              ),
+              Container(
+                child:  DatePicker(
+                 // DateTime.now(),
+                  DateTime.now().subtract(const Duration(days: 4)),
+                //  controller: _controller,
+                  initialSelectedDate: DateTime.now(),
+                  selectionColor: Colors.black,
+                  selectedTextColor: Colors.white,
 
-                    if (snapshot.hasData) {
-                      return SingleChildScrollView(
-                        child: ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (context, i) {
-                              var anotacao =jsonDecode(snapshot.data[i]['anotacao']);
-                              return Card(
-                                child: Container(
-                                 // padding: const EdgeInsets.all(6.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        //  mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 0),
-                                            height: 85,
-                                            decoration: const BoxDecoration(
-                                                //  border: Border.all(color: Colors.blueAccent),
-                                                ),
-                                            child: Column(
-                                              //  crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                buildTextDiaAno(snapshot, i, 8, 10, 32),
-                                                buildTextMes(snapshot, i),
-                                                buildTextDiaAno(snapshot, i, 0, 4, 16),
-                                              ],
-                                            ),
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:CrossAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 0),
-                                                width: MediaQuery.of(context).size.width*0.75,
-                                                // mainAxisSize: MainAxisSize.max,
-                                                child: TextField(
-                                                  controller: TextEditingController(
-                                                      text: anotacao[0]['insert']),
-                                                  maxLines: 3,
-                                                  inputFormatters: [
-                                                    LengthLimitingTextInputFormatter(
-                                                        10),
-                                                  ],
-                                                  decoration: const InputDecoration(
-                                                    border: InputBorder.none,
-                                                  ),
-                                                ),
-                                              ),
-                                              buildContainerDeleteEdit(context,snapshot,i),
-                                            ],
-                                          ),
+                //  firstDate: DateTime(2019, 1),
+                  onDateChange: (date) {
+                    // New date selected
+                    print(date);
+                    setState(() {
+                      _selectedValue2 = date;
+                    });
+                  },
+                ),
+              ),
 
-                                        ],
-                                      ),
+              SizedBox(
+              //  width: 20,
+                height: 10,
+                child:Container() ,
+              ),
+              StreamBuilder(
+                stream: blocNote.anotacaoController,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                 // print(snapshot.data);
+                  if(snapshot.hasData){
+                    return builCardNote(snapshot);
+                  }else{
+                    return const CircularProgressIndicator();
+                  }
+                },
+              ),
 
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }),
-                      );
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  })
             ],
           )),
     );
   }
 
-  Container buildContainerDeleteEdit(  BuildContext context, AsyncSnapshot<dynamic> snapshot, int i) {
+  FutureBuilder<dynamic> buildData() {
+    return FutureBuilder(
+               future: _listaNotas(),
+                //    future:  blocNote.anotacaoController,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child:Row(
+                    children: [
+                 //   const   Text('data'),
+                 //   const    Text('data'),
+
+                      SizedBox(
+                        height: 85,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, i) {
+                            return Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                              height: 85,
+                              decoration:  BoxDecoration(
+                                  color: Theme.of(context).primaryColor
+
+                              ),
+                              child: Column(
+                               children: [
+                                  buildTextDiaAno( snapshot, i, 8, 10, 32),
+                                  buildTextMes(snapshot, i),
+                                  buildTextDiaAno( snapshot, i, 0, 4, 16),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+
+
+
+
+                      ],
+                  )
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            });
+  }
+
+  Column builCardNote(AsyncSnapshot<dynamic> snapshot) {
+    return Column(
+                  children: [
+                    SingleChildScrollView(
+                      child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, i) {
+                            var anotacao =
+                                jsonDecode(snapshot.data[i]['anotacao']);
+                            return Card(
+                              child: Container(
+                                // padding: const EdgeInsets.all(6.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      //  mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 0),
+                                          height: 85,
+                                          decoration: const BoxDecoration(
+                                              //  border: Border.all(color: Colors.blueAccent),
+                                              ),
+                                          child: Column(
+                                            //  crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              buildTextDiaAno( snapshot, i, 8, 10, 32),
+                                              buildTextMes(snapshot, i),
+                                              buildTextDiaAno( snapshot, i, 0, 4, 16),
+                                            ],
+                                          ),
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 10, vertical: 0),
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.75,
+                                              // mainAxisSize: MainAxisSize.max,
+                                              child: TextField(
+                                                controller: TextEditingController(
+                                                    text: anotacao[0]['insert']),
+                                                maxLines: 3,
+                                                inputFormatters: [
+                                                  LengthLimitingTextInputFormatter(
+                                                      10),
+                                                ],
+                                                decoration: const InputDecoration(
+                                                  border: InputBorder.none,
+                                                ),
+                                              ),
+                                            ),
+                                            buildContainerDeleteEdit(
+                                                context, snapshot, i),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                  ],
+                );
+  }
+
+  Container buildContainerDeleteEdit(
+      BuildContext context, AsyncSnapshot<dynamic> snapshot, int i) {
     return Container(
       padding: const EdgeInsets.all(8.0),
       // height: 75,
@@ -119,7 +235,6 @@ class _TabHomeState extends State<TabHome> {
           ),
       child: Row(
         children: [
-
           IconButton(
             onPressed: () {
               showDialog(
@@ -143,6 +258,9 @@ class _TabHomeState extends State<TabHome> {
                           var response =
                               blocNote.deleteNote(snapshot.data[i]['id']);
                           response.then((res) {
+                            var alert = AlertSnackBar();
+                            alert.alertSnackBar(
+                                context, Colors.green, 'Removido com sucesso');
                             Navigator.popAndPushNamed(context, '/');
                           });
                         },
@@ -153,7 +271,6 @@ class _TabHomeState extends State<TabHome> {
               );
             },
             icon: const Icon(Icons.delete),
-
           ),
           IconButton(
               onPressed: () {
@@ -214,6 +331,6 @@ class _TabHomeState extends State<TabHome> {
   }
 
   _listaNotas() {
-    return blocNote.listaAnotacao();
+    return blocNote.listaAgrupadaData();
   }
 }

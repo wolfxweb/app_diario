@@ -2,10 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:app_diario/bloc/blocNote.dart';
+import 'package:app_diario/components/alert_snack.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_reaction_button/flutter_reaction_button.dart';
+
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
@@ -26,7 +27,7 @@ class TabNote extends StatefulWidget {
 
 class _NoteState extends State<TabNote> {
   final QuillController _textAreaController = QuillController.basic();
-  final _textTitulo = TextEditingController();
+  final _textTitulo = TextEditingController(text: "");
   var humor ="1";
   void initState() {
     super.initState();
@@ -55,6 +56,8 @@ class _NoteState extends State<TabNote> {
                 response.then((data){
                   _textAreaController.clear();
                   _textTitulo.clear();
+                  var alert = AlertSnackBar();
+                  alert.alertSnackBar(context, Colors.green,'Adicionado com sucesso');
                 });
               }
             },
@@ -73,7 +76,7 @@ class _NoteState extends State<TabNote> {
               child: Column(
                 children: [
                 //  buildComoEstou(),
-                  Container(
+               /*   Container(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       controller: _textTitulo,
@@ -83,7 +86,7 @@ class _NoteState extends State<TabNote> {
                           hintText: 'Digite tiutlo',
                       )
                     ),
-                  ),
+                  ),*/
                   Expanded(
                     child: Container(
                     //  padding: const EdgeInsets.all(8),
@@ -116,7 +119,7 @@ class _NoteState extends State<TabNote> {
                       //  mediaPickSettingSelector: _selectMediaPickSetting,
                       // uncomment to provide a custom "pick from" dialog.
                       // cameraPickSettingSelector: _selectCameraPickSetting,
-                     // multiRowsDisplay: false,
+                      multiRowsDisplay: false,
                       showAlignmentButtons: true,
                       embedButtons: FlutterQuillEmbeds.buttons(
                         // provide a callback to enable picking images from device.

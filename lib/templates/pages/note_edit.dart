@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:app_diario/bloc/blocNote.dart';
+import 'package:app_diario/components/alert_snack.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:filesystem_picker/filesystem_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -83,6 +84,8 @@ class _NoteEditState extends State<NoteEdit> {
              //   print(_textAreaController.document.toDelta().toJson());
                var response =  blocNote.saveBlocNote(widget._id,jsonEncode(widget._textAreaController.document.toDelta().toJson()),widget._humor,widget._textTitulo.text);
               response.then((data){
+                var alert = AlertSnackBar();
+                alert.alertSnackBar(context, Colors.red,'Editado com sucesso');
               //    print("edição da nota");
              //     print(data);
                 //  _textAreaController.clear();
@@ -106,7 +109,7 @@ class _NoteEditState extends State<NoteEdit> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Container(
+              /*  Container(
                 //  padding: const EdgeInsets.all(8.0),
                   child: TextField(
                       controller: widget._textTitulo,
@@ -117,7 +120,7 @@ class _NoteEditState extends State<NoteEdit> {
                       )
 
                   ),
-                ),
+                ),*/
                 Expanded(
                   child: QuillEditor(
                     controller: widget._textAreaController,

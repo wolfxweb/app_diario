@@ -22,5 +22,10 @@ class DbNote{
     final dbClient = await db;
     return await dbClient!.rawQuery('DELETE from anotacoes where id = $id ');
   }
+  Future<List<dynamic>> listaAgrupadaData() async {
+    final dbClient = await db;
+    List<dynamic> list = await dbClient!.rawQuery('select date(data_hora) as data_hora from anotacoes GROUP BY data_hora ORDER by data_hora DESC');
+    return list;
+  }
 
 }
