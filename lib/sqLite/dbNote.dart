@@ -27,5 +27,15 @@ class DbNote{
     List<dynamic> list = await dbClient!.rawQuery('select date(data_hora) as data_hora from anotacoes GROUP BY data_hora ORDER by data_hora DESC');
     return list;
   }
-
+  Future<List<dynamic>> listaFiltoData(data) async {
+    print('listaFiltoData');
+    print(data);
+    final dbClient = await db;
+    List<dynamic> list = await dbClient!.rawQuery("select * from anotacoes WHERE data_hora Like '${'%$data%'}' ");
+    return list;
+  }
+/*
+  select * from anotacoes WHERE data_hora Like '%2022-09-25%'
+  UPDATE anotacoes set data_hora = '2022-09-24 22:00:00' where id =2
+ */
 }

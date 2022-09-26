@@ -20,13 +20,9 @@ class TabHome extends StatefulWidget {
 
 class _TabHomeState extends State<TabHome> {
   var blocNote = BlocNote();
-   DatePickerController _controller = DatePickerController();
-
-  DateTime _selectedValue2 = DateTime.now();
-  DateTime _selectedValue = DateTime.now();
-
+  var dias = 4;
   void initState() {
-    _selectedValue = DateTime.now();
+
     super.initState();
   }
   @override
@@ -48,25 +44,29 @@ class _TabHomeState extends State<TabHome> {
                 height: 10,
                 child:Container() ,
               ),
-              Container(
-                child:  DatePicker(
-                 // DateTime.now(),
-                  DateTime.now().subtract(const Duration(days: 4)),
-                //  controller: _controller,
-                  initialSelectedDate: DateTime.now(),
-                  selectionColor: Colors.black,
-                  selectedTextColor: Colors.white,
+              GestureDetector(
+                onPanUpdate: (details) {
+                  // Swiping in right direction.
+                  if (details.delta.dx > 0) {}
 
-                //  firstDate: DateTime(2019, 1),
-                  onDateChange: (date) {
-                    // New date selected
-                    print(date);
-                    setState(() {
-                      _selectedValue2 = date;
-                    });
-                  },
+                  // Swiping in left direction.
+                  if (details.delta.dx < 0) {}
+                },
+                child: Container(
+                  child:  DatePicker(
+                    DateTime.now().subtract( Duration(days: dias)),
+                    initialSelectedDate: DateTime.now(),
+                    selectionColor: Theme.of(context).primaryColor,
+                    selectedTextColor: Colors.white,
+                    onDateChange: (date) {
+                      setState(() {
+                        blocNote.listaFiltoDataAnotacao(date.toString().substring(0, 10));
+                      });
+                    },
+                  ),
                 ),
               ),
+
 
               SizedBox(
               //  width: 20,
@@ -90,58 +90,7 @@ class _TabHomeState extends State<TabHome> {
     );
   }
 
-  FutureBuilder<dynamic> buildData() {
-    return FutureBuilder(
-               future: _listaNotas(),
-                //    future:  blocNote.anotacaoController,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
-                return SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child:Row(
-                    children: [
-                 //   const   Text('data'),
-                 //   const    Text('data'),
-
-                      SizedBox(
-                        height: 85,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, i) {
-                            return Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                              height: 85,
-                              decoration:  BoxDecoration(
-                                  color: Theme.of(context).primaryColor
-
-                              ),
-                              child: Column(
-                               children: [
-                                  buildTextDiaAno( snapshot, i, 8, 10, 32),
-                                  buildTextMes(snapshot, i),
-                                  buildTextDiaAno( snapshot, i, 0, 4, 16),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-
-
-
-
-                      ],
-                  )
-                );
-              } else {
-                return const CircularProgressIndicator();
-              }
-            });
-  }
-
-  Column builCardNote(AsyncSnapshot<dynamic> snapshot) {
+  builCardNote(AsyncSnapshot<dynamic> snapshot) {
     return Column(
                   children: [
                     SingleChildScrollView(
@@ -166,22 +115,22 @@ class _TabHomeState extends State<TabHome> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Container(
+                                     /*   Container(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 0),
-                                          height: 85,
+                                          height: 50,
                                           decoration: const BoxDecoration(
-                                              //  border: Border.all(color: Colors.blueAccent),
+                                            //    border: Border.symmetric(vertical: BorderSide.)
                                               ),
                                           child: Column(
                                             //  crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              buildTextDiaAno( snapshot, i, 8, 10, 32),
-                                              buildTextMes(snapshot, i),
-                                              buildTextDiaAno( snapshot, i, 0, 4, 16),
+                                             // buildTextDiaAno( snapshot, i, 8, 10, 32),
+                                            //  buildTextMes(snapshot, i),
+                                           //   buildTextDiaAno( snapshot, i, 0, 4, 16),
                                             ],
                                           ),
-                                        ),
+                                        ),*/
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.end,
@@ -191,8 +140,7 @@ class _TabHomeState extends State<TabHome> {
                                                   horizontal: 10, vertical: 0),
                                               width: MediaQuery.of(context)
                                                       .size
-                                                      .width *
-                                                  0.75,
+                                                      .width *0.90,
                                               // mainAxisSize: MainAxisSize.max,
                                               child: TextField(
                                                 controller: TextEditingController(
@@ -223,8 +171,7 @@ class _TabHomeState extends State<TabHome> {
                 );
   }
 
-  Container buildContainerDeleteEdit(
-      BuildContext context, AsyncSnapshot<dynamic> snapshot, int i) {
+  Container buildContainerDeleteEdit(BuildContext context, AsyncSnapshot<dynamic> snapshot, int i) {
     return Container(
       padding: const EdgeInsets.all(8.0),
       // height: 75,
@@ -235,6 +182,7 @@ class _TabHomeState extends State<TabHome> {
           ),
       child: Row(
         children: [
+          Text(snapshot.data[i]['data_hora'].toString().substring(0, 10)),
           IconButton(
             onPressed: () {
               showDialog(
@@ -246,6 +194,7 @@ class _TabHomeState extends State<TabHome> {
                     actions: [
                       // cancelButton,
                       // continueButton,
+
                       TextButton(
                         child: Text("Não"),
                         onPressed: () {
