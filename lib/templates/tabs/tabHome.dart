@@ -7,9 +7,9 @@ import 'package:app_diario/templates/read_only_page.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_date_picker_timeline/flutter_date_picker_timeline.dart';
+//import 'package:flutter_date_picker_timeline/flutter_date_picker_timeline.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
-
+import 'package:calendar_timeline/calendar_timeline.dart';
 
 class TabHome extends StatefulWidget {
   const TabHome({Key? key}) : super(key: key);
@@ -21,9 +21,15 @@ class TabHome extends StatefulWidget {
 class _TabHomeState extends State<TabHome> {
   var blocNote = BlocNote();
   var dias = 4;
-  void initState() {
+  var texto ='opa';
+  late DateTime _selectedDate;
 
+  void initState() {
     super.initState();
+    _resetSelectedDate();
+  }
+  void _resetSelectedDate() {
+    _selectedDate = DateTime.now();
   }
   @override
   Widget build(BuildContext context) {
@@ -44,30 +50,39 @@ class _TabHomeState extends State<TabHome> {
                 height: 10,
                 child:Container() ,
               ),
-              GestureDetector(
-                onPanUpdate: (details) {
-                  // Swiping in right direction.
-                  if (details.delta.dx > 0) {}
 
-                  // Swiping in left direction.
-                  if (details.delta.dx < 0) {}
-                },
-                child: Container(
-                  child:  DatePicker(
-                    DateTime.now().subtract( Duration(days: dias)),
-                    initialSelectedDate: DateTime.now(),
-                    selectionColor: Theme.of(context).primaryColor,
-                    selectedTextColor: Colors.white,
-                    onDateChange: (date) {
-                      setState(() {
-                        blocNote.listaFiltoDataAnotacao(date.toString().substring(0, 10));
-                      });
-                    },
-                  ),
+              Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
+                decoration: BoxDecoration(
+                   color: Theme.of(context).primaryColor,
+                   borderRadius: BorderRadius.circular(5),
+
                 ),
+
+                child: CalendarTimeline(
+                  initialDate: _selectedDate,
+                  firstDate: DateTime(2020, 1, 1),
+                  lastDate: DateTime.now().add(Duration(days: 365 * 1)),
+                  onDateSelected: (date) {
+                    blocNote.listaFiltoDataAnotacao(date.toString().substring(0, 10));
+                    print(Theme.of(context).primaryColor);
+                    setState(() {
+                      _selectedDate = date;
+                     // blocNote.listaFiltoDataAnotacao(date.toString().substring(0, 10));
+                    });
+                  },
+                  leftMargin: 20,
+                  monthColor: Colors.white,
+                  dayColor:  Colors.white,
+                  activeDayColor: Theme.of(context).primaryColor,
+                  activeBackgroundDayColor:  Colors.white,
+                  dotsColor: Theme.of(context).primaryColor,
+              //    showYears: true,
+                //  selectableDayPredicate: (date) => date.day != 23,
+                 // locale: 'pt_ISO',
+                )
+
               ),
-
-
               SizedBox(
               //  width: 20,
                 height: 10,
@@ -89,7 +104,6 @@ class _TabHomeState extends State<TabHome> {
           )),
     );
   }
-
   builCardNote(AsyncSnapshot<dynamic> snapshot) {
     return Column(
                   children: [
@@ -115,29 +129,13 @@ class _TabHomeState extends State<TabHome> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                     /*   Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10, vertical: 0),
-                                          height: 50,
-                                          decoration: const BoxDecoration(
-                                            //    border: Border.symmetric(vertical: BorderSide.)
-                                              ),
-                                          child: Column(
-                                            //  crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                             // buildTextDiaAno( snapshot, i, 8, 10, 32),
-                                            //  buildTextMes(snapshot, i),
-                                           //   buildTextDiaAno( snapshot, i, 0, 4, 16),
-                                            ],
-                                          ),
-                                        ),*/
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.end,
                                           children: [
                                             Container(
                                               padding: const EdgeInsets.symmetric(
-                                                  horizontal: 10, vertical: 0),
+                                                  horizontal: 8, vertical: 0),
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *0.90,
@@ -219,7 +217,7 @@ class _TabHomeState extends State<TabHome> {
                 },
               );
             },
-            icon: const Icon(Icons.delete),
+            icon: const Icon(Icons.delete,color: Colors.red,),
           ),
           IconButton(
               onPressed: () {
@@ -229,12 +227,15 @@ class _TabHomeState extends State<TabHome> {
                   return ReadOnlyPage(snapshot.data[i]);
                 }));
               },
-              icon: const Icon(Icons.edit)),
+              icon:  Icon(Icons.edit,
+               // color: Theme.of(context).primaryColor!='0xff673ab7'?Colors.white:Colors.green,
+              ),
+          ),
         ],
       ),
     );
   }
-
+/*
   Text buildTextDiaAno(AsyncSnapshot<dynamic> snapshot, int i, int inicio,
       int fim, double sizeFont) {
     return Text(
@@ -244,7 +245,8 @@ class _TabHomeState extends State<TabHome> {
       ),
     );
   }
-
+  */
+/*
   Text buildTextMes(AsyncSnapshot<dynamic> snapshot, int i) {
     var mesRef = snapshot.data[i]['data_hora'].toString().substring(5, 7);
     var mes;
@@ -278,8 +280,9 @@ class _TabHomeState extends State<TabHome> {
       style: const TextStyle(fontSize: 18),
     );
   }
-
-  _listaNotas() {
+*/
+  /*_listaNotas() {
     return blocNote.listaAgrupadaData();
   }
+  */
 }
