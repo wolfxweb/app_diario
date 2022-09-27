@@ -115,7 +115,7 @@ class _ReadOnlyPageState extends State<ReadOnlyPage> {
                         scrollController: ScrollController(),
                         scrollable: true,
                         readOnly: false,
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(25),
                         expands: false,
                         autoFocus: true,
 
@@ -172,7 +172,7 @@ class _ReadOnlyPageState extends State<ReadOnlyPage> {
       ),
     );
   }
-
+/*
   SizedBox buildComoEstou() {
     return SizedBox(
       child: Padding(
@@ -292,7 +292,7 @@ class _ReadOnlyPageState extends State<ReadOnlyPage> {
     );
   }
 
-
+*/
   Future<String?> _onImagePickCallback(File file) async {
     final appDocDir = await getApplicationDocumentsDirectory();
     final copiedFile =  await file.copy('${appDocDir.path}/${basename(file.path)}');

@@ -143,7 +143,7 @@ class _TabHomeState extends State<TabHome> {
                                               child: TextField(
                                                 controller: TextEditingController(
                                                     text: anotacao[0]['insert']),
-                                                maxLines: 3,
+                                                maxLines: 2,
                                                 inputFormatters: [
                                                   LengthLimitingTextInputFormatter(
                                                       10),

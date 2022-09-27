@@ -95,7 +95,7 @@ class _NoteState extends State<TabNote> {
                         scrollController: ScrollController(),
                         scrollable: true,
                         readOnly: false,
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(25),
                         expands: false,
                         autoFocus: false,
                         focusNode: FocusNode(),
@@ -109,7 +109,7 @@ class _NoteState extends State<TabNote> {
 
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: QuillToolbar.basic(
                       controller: _textAreaController,
                     //  onImagePickCallback: _onImagePickCallback,
@@ -148,130 +148,6 @@ class _NoteState extends State<TabNote> {
       ),
     );
   }
-
-  SizedBox buildComoEstou() {
-    return SizedBox(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16, horizontal:16),
-              child: Column(
-                children: [
-                   Row(
-                    children:  [
-                      GestureDetector(
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: const BoxDecoration(
-                            color: Colors.black,
-                            image: DecorationImage(
-                                image: AssetImage("assets/img/img1.png"),
-                                fit: BoxFit.cover),
-                          ),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            humor ="1";
-                          });
-                          print("1");
-                        },
-                      ),
-                      GestureDetector(
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: const BoxDecoration(
-                            color: Colors.black,
-                            image: DecorationImage(
-                                image: AssetImage("assets/img/img1.png"),
-                                fit: BoxFit.cover),
-                          ),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            humor ="2";
-                          });
-                          print("2");
-                        },
-                      ),
-                      GestureDetector(
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: const BoxDecoration(
-                            color: Colors.black,
-                            image: DecorationImage(
-                                image: AssetImage("assets/img/img1.png"),
-                                fit: BoxFit.cover),
-                          ),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            humor ="3";
-                          });
-                          print("3");
-                        },
-                      ),
-                      GestureDetector(
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: const BoxDecoration(
-                            color: Colors.black,
-                            image: DecorationImage(
-                                image: AssetImage("assets/img/img1.png"),
-                                fit: BoxFit.cover),
-                          ),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            humor ="4";
-                          });
-                          print("4");
-                        },
-                      ),
-                      GestureDetector(
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: const BoxDecoration(
-                            color: Colors.black,
-                            image: DecorationImage(
-                                image: AssetImage("assets/img/img1.png"),
-                                fit: BoxFit.cover),
-                          ),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            humor ="5";
-                          });
-                          print("5");
-                        },
-                      ),
-                      IconButton(onPressed: (){
-                        var isText = _textAreaController.document.isEmpty();
-                        if (!isText) {
-                          var blocNote = BlocNote();
-
-                          print(_textTitulo.text);
-                          var response =  blocNote.saveBlocNote(null,jsonEncode(_textAreaController.document.toDelta().toJson()),humor,_textTitulo.text);
-                          response.then((data){
-                            print("data note linha 191");
-                            print(data);
-                            _textAreaController.clear();
-                            _textTitulo.clear();
-                          });
-                        }
-                      }, icon: Icon(Icons.check))
-
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          );
-  }
-
 
   Future<String?> _onImagePickCallback(File file) async {
     final appDocDir = await getApplicationDocumentsDirectory();
