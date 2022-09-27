@@ -51,37 +51,43 @@ class _TabHomeState extends State<TabHome> {
                 child:Container() ,
               ),
 
-              Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
-                decoration: BoxDecoration(
-                   color: Theme.of(context).primaryColor,
-                   borderRadius: BorderRadius.circular(5),
+              Card(
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
+                  decoration: BoxDecoration(
+                     color: Theme.of(context).primaryColor,
+                     borderRadius: BorderRadius.circular(5),
+
+                  ),
+
+                  child: CalendarTimeline(
+                    initialDate: _selectedDate,
+                    firstDate: DateTime(2020, 1, 1),
+                    lastDate: DateTime.now().add(Duration(days: 365 * 1)),
+                    onDateSelected: (date) {
+                      blocNote.listaFiltoDataAnotacao(date.toString().substring(0, 10));
+                      print(Theme.of(context).primaryColor);
+                      setState(() {
+                        _selectedDate = date;
+                       // blocNote.listaFiltoDataAnotacao(date.toString().substring(0, 10));
+                      });
+                    },
+                    leftMargin: 20,
+                    monthColor: Colors.white,
+                    dayColor:  Colors.white,
+                    activeDayColor: Theme.of(context).primaryColor,
+                    activeBackgroundDayColor:  Colors.white,
+                    dotsColor: Theme.of(context).primaryColor,
+                //    showYears: true,
+                  //  selectableDayPredicate: (date) => date.day != 23,
+                   // locale: 'pt_ISO',
+                  )
 
                 ),
-
-                child: CalendarTimeline(
-                  initialDate: _selectedDate,
-                  firstDate: DateTime(2020, 1, 1),
-                  lastDate: DateTime.now().add(Duration(days: 365 * 1)),
-                  onDateSelected: (date) {
-                    blocNote.listaFiltoDataAnotacao(date.toString().substring(0, 10));
-                    print(Theme.of(context).primaryColor);
-                    setState(() {
-                      _selectedDate = date;
-                     // blocNote.listaFiltoDataAnotacao(date.toString().substring(0, 10));
-                    });
-                  },
-                  leftMargin: 20,
-                  monthColor: Colors.white,
-                  dayColor:  Colors.white,
-                  activeDayColor: Theme.of(context).primaryColor,
-                  activeBackgroundDayColor:  Colors.white,
-                  dotsColor: Theme.of(context).primaryColor,
-              //    showYears: true,
-                //  selectableDayPredicate: (date) => date.day != 23,
-                 // locale: 'pt_ISO',
-                )
-
               ),
               SizedBox(
               //  width: 20,

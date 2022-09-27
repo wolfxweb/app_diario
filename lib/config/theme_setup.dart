@@ -12,7 +12,7 @@ class ThemeSetup {
         Colors.deepPurple, // cor pimaria primaryColor
         Colors.blue, //backgroundColor
         Colors.white, //button
-        Colors.grey, // headline
+        Colors.black54, // headline
         Colors.white,//onPrimary  cor texto botão
         Brightness.light, //brightness
       ),
@@ -22,7 +22,7 @@ class ThemeSetup {
         Colors.pink, // cor pimaria primaryColor
         Colors.blue, //backgroundColor
         Colors.white, //button
-        Colors.grey, // headline
+        Colors.black54, // headline
         Colors.white,//onPrimary  cor texto botão
         Brightness.light, //brightness
       ),
@@ -32,7 +32,7 @@ class ThemeSetup {
         Colors.lightGreen, // cor pimaria primaryColor
         Colors.blue, //backgroundColor
         Colors.white, //button
-        Colors.grey, // headline
+        Colors.black54, // headline
         Colors.white,//onPrimary  cor texto botão
         Brightness.light, //brightness
       ),
@@ -42,7 +42,7 @@ class ThemeSetup {
         Colors.orange, // cor pimaria primaryColor
         Colors.blue, //backgroundColor
         Colors.white, //button
-        Colors.grey, // headline
+        Colors.black54, // headline
         Colors.white,//onPrimary  cor texto botão
         Brightness.light, //brightness
       ),
@@ -52,7 +52,7 @@ class ThemeSetup {
         Colors.grey, // cor pimaria primaryColor
         Colors.blue, //backgroundColor
         Colors.white, //button
-        Colors.grey, // headline
+        Colors.black54, // headline
         Colors.white,//onPrimary  cor texto botão
         Brightness.light, //brightness
       ),
@@ -62,7 +62,7 @@ class ThemeSetup {
         Colors.teal, // cor pimaria primaryColor
         Colors.blue, //backgroundColor
         Colors.white, //button
-        Colors.grey, // headline
+        Colors.black54, // headline
         Colors.white,//onPrimary  cor texto botão
         Brightness.light, //brightness
       ),
@@ -72,11 +72,11 @@ class ThemeSetup {
         Colors.brown, // cor pimaria primaryColor
         Colors.blue, //backgroundColor
         Colors.white, //button
-        Colors.grey, // headline
+        Colors.black54, // headline
         Colors.white,//onPrimary  cor texto botão
         Brightness.light, //brightness
       ),
-      
+
       /* inicio do temas darck*/
       appThemeFucntion(
           "theme_4", //id thema
@@ -84,7 +84,7 @@ class ThemeSetup {
           Colors.deepPurple, // cor pimaria primaryColor
           Colors.blue, //backgroundColor
           Colors.white, //button
-          Colors.grey, // headline
+          Colors.white, // headline
           Colors.white,//onPrimary  cor texto botão
           Brightness.dark, //brightness
           ),
@@ -94,7 +94,7 @@ class ThemeSetup {
         Colors.pink, // cor pimaria primaryColor
         Colors.blue, //backgroundColor
         Colors.white, //button
-        Colors.grey, // headline
+        Colors.white, // headline
         Colors.white,//onPrimary  cor texto botão
         Brightness.dark, //brightness
       ),
@@ -104,7 +104,7 @@ class ThemeSetup {
         Colors.lightGreen, // cor pimaria primaryColor
         Colors.blue, //backgroundColor
         Colors.white, //button
-        Colors.grey, // headline
+        Colors.white, // headline
         Colors.white,//onPrimary  cor texto botão
         Brightness.dark, //brightness
       ),
@@ -114,7 +114,7 @@ class ThemeSetup {
         Colors.orange, // cor pimaria primaryColor
         Colors.blue, //backgroundColor
         Colors.white, //button
-        Colors.grey, // headline
+        Colors.white, // headline
         Colors.white,//onPrimary  cor texto botão
         Brightness.dark, //brightness
       ),
@@ -124,7 +124,7 @@ class ThemeSetup {
         Colors.grey, // cor pimaria primaryColor
         Colors.blue, //backgroundColor
         Colors.white, //button
-        Colors.grey, // headline
+        Colors.white, // headline
         Colors.white,//onPrimary  cor texto botão
         Brightness.dark, //brightness
       ),
@@ -134,7 +134,7 @@ class ThemeSetup {
         Colors.teal, // cor pimaria primaryColor
         Colors.blue, //backgroundColor
         Colors.white, //button
-        Colors.grey, // headline
+        Colors.white, // headline
         Colors.white,//onPrimary  cor texto botão
         Brightness.dark, //brightness
       ),
@@ -144,7 +144,7 @@ class ThemeSetup {
         Colors.brown, // cor pimaria primaryColor
         Colors.blue, //backgroundColor
         Colors.white, //button
-        Colors.grey, // headline
+        Colors.white,// headline
         Colors.white,//onPrimary  cor texto botão
         Brightness.dark, //brightness
       ),

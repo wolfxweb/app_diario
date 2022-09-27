@@ -34,7 +34,7 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
               child: Column(
 
                 children: [
-                  Text("Themas Light"),
+                 const  Text("Themes Light",  style: TextStyle( fontSize:24),),
                   Column(
                     children: [
                       Row(
@@ -110,7 +110,7 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical:16),
               child: Column(
                 children: [
-                  Text("thema darck"),
+                  const  Text("Themes Dark",  style: TextStyle( fontSize:24),),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
