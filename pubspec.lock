@@ -290,7 +290,7 @@ packages:
       name: flutter_quill
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.5"
+    version: "6.0.6"
   flutter_quill_extensions:
     dependency: "direct dev"
     description:
@@ -322,6 +322,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  form_validator:
+    dependency: "direct dev"
+    description:
+      name: form_validator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   gallery_saver:
     dependency: transitive
     description:
@@ -824,6 +831,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.0"
+  toggle_switch:
+    dependency: "direct dev"
+    description:
+      name: toggle_switch
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   tuple:
     dependency: "direct dev"
     description:
@@ -935,7 +949,7 @@ packages:
       name: video_player_avfoundation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.5"
+    version: "2.3.6"
   video_player_platform_interface:
     dependency: transitive
     description:

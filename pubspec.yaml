@@ -76,6 +76,10 @@ dev_dependencies:
   stacked:
   stacked_themes: ^0.3.9
   get_it:
+  toggle_switch: ^2.0.1
+  form_validator: ">=0.1.1 <2.0.0"
+
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
