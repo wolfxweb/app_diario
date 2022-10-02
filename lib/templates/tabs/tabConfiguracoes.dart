@@ -1,3 +1,4 @@
+import 'package:app_diario/bloc/blocEmail.dart';
 import 'package:app_diario/components/alert_modal.dart';
 import 'package:app_diario/components/alert_snack.dart';
 import 'package:app_diario/templates/home_page.dart';
@@ -14,14 +15,35 @@ class TabConfiguracoes extends StatefulWidget {
 }
 
 class _TabConfiguracoesState extends State<TabConfiguracoes> {
-
+  var blocEmail = BlocEmail();
   var alertSnackBar = AlertSnackBar();
   var alertModal = AlertModal();
+  var id = null;
+  var emailBool = true;
+  List email = [];
   int status = 1;
   TextEditingController emailInput = TextEditingController();
+  TextEditingController senhalInput = TextEditingController();
   void initState() {
     super.initState();
     status = 1;
+    emailList();
+  }
+
+  emailList() async {
+    email = await blocEmail.getEmail();
+    email.forEach((element) {
+      print(element);
+      setState(() {
+        status = int.parse(element['status']);
+        emailInput.text = element['email'].toString();
+        senhalInput.text = element['senha'].toString();
+        id = element['id'];
+        if(element['id'] != 0){
+          emailBool = false;
+        }
+      });
+    });
   }
 
   @override
@@ -54,7 +76,10 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Ativa senha?", style: TextStyle(fontSize: 24),),
+                           const Text(
+                              "Ativa senha?",
+                              style: TextStyle(fontSize: 24),
+                            ),
                             ToggleSwitch(
                               minWidth: 60.0,
                               //   cornerRadius: 20.0,
@@ -70,21 +95,35 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
                               labels: ['True', 'False'],
                               radiusStyle: true,
                               onToggle: (index) {
-                                if(emailInput.text.isEmpty && status ==1){
-                                   alertModal.openModal(context, "Para ativar este recurso o email de recuperação de senha deve ser informado");
+                                if (emailInput.text.isEmpty && status == 1) {
+                                  alertModal.openModal(context,
+                                      "Para ativar este recurso o email de recuperação de senha deve ser informado");
                                 }
-                                _saveAtivarSenha(index);
+
                                 setState(() {
                                   status = index!;
                                 });
+                                saveEmail();
+                                //  var res =  blocEmail.saveEmail(id,emailInput.text, status.toString(), '','');
                                 print('switched to: $index');
+                                //   print('switched to res: $res');
                               },
                             ),
                           ],
                         ),
                         buildSizedBox(),
                         if (status != 1)
-                          buildRowEmail(context)
+                        emailBool?buildInputs(context): ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              emailBool = !emailBool;
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            // primary: cor,
+                          ),
+                          child: !emailBool?Text("Editar senha cadastrada"):Text("Cadastrar senha"),
+                        )
                         else
                           Container(),
                       ],
@@ -97,13 +136,73 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
     );
   }
 
+  Column buildInputs(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          //  width: MediaQuery.of(context).size.width * 0.73,
+          // height: 50,
+          child: TextFormField(
+            controller: emailInput,
+            keyboardType: TextInputType.emailAddress,
+            validator: ValidationBuilder().email().maxLength(50).build(),
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Digite o seu email',
+            ),
+          ),
+        ),
+        buildSizedBox(),
+        SizedBox(
+          // width: MediaQuery.of(context).size.width * 0.73,
+          //  height: 50,
+          child: TextFormField(
+            controller: senhalInput,
+            keyboardType: TextInputType.emailAddress,
+            validator: ValidationBuilder().email().maxLength(50).build(),
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Digite sua senha',
+            ),
+          ),
+        ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.15,
+          //  height: 60,
+          child: IconButton(
+            iconSize: 50,
+            icon: Icon(
+              Icons.save,
+              color: Theme.of(context).primaryColor,
+            ),
+            onPressed: () {
+              // blocEmail.saveEmail(id,emailInput.text, '0', '',senhalInput.text);
+              saveEmail();
+              setState(() {
+                emailBool = !emailBool;
+              });
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  saveEmail() async {
+    var response = await blocEmail.saveEmail(
+        id, emailInput.text, status, '', senhalInput.text);
+    response.runtimeType;
+    print('response');
+    print(response.runtimeType);
+  }
+
   Row buildRowEmail(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.65,
-          //  height: 40,
+          width: MediaQuery.of(context).size.width * 0.73,
+          height: 50,
           child: TextFormField(
             controller: emailInput,
             keyboardType: TextInputType.emailAddress,
@@ -115,28 +214,21 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
           ),
         ),
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.23,
+          width: MediaQuery.of(context).size.width * 0.15,
           height: 60,
-          child: ElevatedButton(
-            child: const Text('Salvar'),
-            onPressed: () {
-              if(emailInput.text.isEmpty){
-               return  alertModal.openModal(context, "Campo email e obrigatorio");
-              }
-
-
-            },
-            style: ElevatedButton.styleFrom(
-              primary: Theme.of(context).primaryColor,
+          child: IconButton(
+            iconSize: 50,
+            icon: Icon(
+              Icons.save,
+              color: Theme.of(context).primaryColor,
             ),
+            onPressed: () {
+              //  blocEmail.saveEmail(id,emailInput.text, '0', '',senhalInput.text);
+            },
           ),
         ),
       ],
     );
-  }
-
-  _saveAtivarSenha(int? index) {
-
   }
 
   SizedBox buildSizedBox() => SizedBox(
@@ -307,7 +399,6 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
   ElevatedButton buildElevatedButton(
       BuildContext context, String titulo, String thema, cor) {
     return ElevatedButton(
-      child: Text(titulo),
       onPressed: () {
         ThemeProvider.controllerOf(context).setTheme(thema);
         alertSnackBar.alertSnackBar(context, cor, "Thema alterado com sucesso");
@@ -315,6 +406,7 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
       style: ElevatedButton.styleFrom(
         primary: cor,
       ),
+      child: Text(titulo),
     );
   }
 }

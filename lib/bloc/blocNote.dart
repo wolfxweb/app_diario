@@ -33,7 +33,7 @@ class BlocNote implements BlocBase{
 //  var db =  DbNote();
    try{
      var js = noteToJson(id, dados,humor,textTitulo);
-     print(textTitulo);
+
      return  await db.save(js.toJson());
    }catch (_) {}
  }
@@ -46,7 +46,6 @@ class BlocNote implements BlocBase{
         anotacoes.add(res);
       });
      _anotacaoController.add(anotacoes);
-
      return anotacoes;
    }catch (_) {}
 
