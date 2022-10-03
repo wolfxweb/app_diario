@@ -3,16 +3,16 @@ class emailToJson {
   String? email;
   String? status;
   String? code;
-  String? senha;
+  String? pass;
 
-  emailToJson(this.id, this.email, this.status, this.code, this.senha);
+  emailToJson(this.id, this.email, this.status, this.code, this.pass);
 
   emailToJson.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     email = json['email'];
     status = json['status'];
     code = json['code'];
-    senha = json['senha'];
+    pass = json['pass'];
   }
 
   Map<String, dynamic> toJson() {
@@ -21,7 +21,7 @@ class emailToJson {
     data['email'] = this.email;
     data['status'] = this.status;
     data['code'] = this.code;
-    data['senha'] = this.senha;
+    data['pass'] = this.pass;
     return data;
   }
 }

@@ -33,17 +33,19 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
   emailList() async {
     email = await blocEmail.getEmail();
     email.forEach((element) {
-      print(element);
+    //  print(element);
       setState(() {
         status = int.parse(element['status']);
         emailInput.text = element['email'].toString();
-        senhalInput.text = element['senha'].toString();
+        senhalInput.text = element['pass'].toString();
         id = element['id'];
         if(element['id'] != 0){
           emailBool = false;
         }
       });
     });
+    print('email tab confg');
+    print(email);
   }
 
   @override
@@ -99,14 +101,10 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
                                   alertModal.openModal(context,
                                       "Para ativar este recurso o email de recuperação de senha deve ser informado");
                                 }
-
                                 setState(() {
                                   status = index!;
                                 });
                                 saveEmail();
-                                //  var res =  blocEmail.saveEmail(id,emailInput.text, status.toString(), '','');
-                                print('switched to: $index');
-                                //   print('switched to res: $res');
                               },
                             ),
                           ],
@@ -166,34 +164,64 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
             ),
           ),
         ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.15,
-          //  height: 60,
-          child: IconButton(
-            iconSize: 50,
-            icon: Icon(
-              Icons.save,
-              color: Theme.of(context).primaryColor,
-            ),
-            onPressed: () {
-              // blocEmail.saveEmail(id,emailInput.text, '0', '',senhalInput.text);
-              saveEmail();
-              setState(() {
-                emailBool = !emailBool;
-              });
-            },
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.15,
+                //  height: 60,
+                child: IconButton(
+                  iconSize: 40,
+                  icon: const Icon(
+                    Icons.cancel,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                  //blocEmail.saveEmail(id,emailInput.text, '0', '',senhalInput.text);
+                  //saveEmail();
+                    setState(() {
+                      emailBool = !emailBool;
+                    });
+                    Navigator.popAndPushNamed(context,'/configuracao');
+                  },
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.15,
+                //  height: 60,
+                child: IconButton(
+                  iconSize: 40,
+                  icon: Icon(
+                    Icons.save,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: () {
+                    // blocEmail.saveEmail(id,emailInput.text, '0', '',senhalInput.text);
+                    saveEmail();
+                    setState(() {
+                      emailBool = !emailBool;
+                    });
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ],
     );
   }
 
-  saveEmail() async {
-    var response = await blocEmail.saveEmail(
-        id, emailInput.text, status, '', senhalInput.text);
-    response.runtimeType;
-    print('response');
-    print(response.runtimeType);
+  saveEmail()  {
+    var st = '0';
+    if(status == 1){
+      st = '1';
+    }
+    print('status');
+    print(status.runtimeType.toString());
+    print('status');
+    blocEmail.saveEmail(id,emailInput.text,st,'0',senhalInput.text);
   }
 
   Row buildRowEmail(BuildContext context) {

@@ -4,13 +4,10 @@
 
 import 'dart:ui';
 
+
 import 'package:app_diario/class/json/emailToJson.dart';
-import 'package:app_diario/class/json/noteToJson.dart';
-import 'package:app_diario/sqLite/dbNote.dart';
 import 'package:app_diario/sqLite/modelEmail.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:rxdart/subjects.dart';
-import 'package:rxdart/rxdart.dart';
 
 
 class BlocEmail implements BlocBase{
@@ -29,9 +26,16 @@ class BlocEmail implements BlocBase{
    // _emailController.add(email);
 
   }
-  saveEmail(id,email,status,code,senha)async{
+  saveEmail(id,email,status,code,pass)async{
+
+    print(id);
+    print(email);
+    print(status);
+    print(code);
+    print(pass);
+
     try{
-      var js = emailToJson(id, email,status,code,senha);
+      var js = emailToJson(id, email,status,code,pass);
       return  await db.save(js.toJson());
     }catch (_) {}
   }

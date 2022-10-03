@@ -78,6 +78,8 @@ dev_dependencies:
   get_it:
   toggle_switch: ^2.0.1
   form_validator: ">=0.1.1 <2.0.0"
+  mailer: ^5.2.0
+  sendgrid_mailer: ^0.1.3
 
 
 
