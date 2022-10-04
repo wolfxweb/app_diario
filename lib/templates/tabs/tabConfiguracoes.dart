@@ -156,6 +156,7 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
           //  height: 50,
           child: TextFormField(
             controller: senhalInput,
+            obscureText:true,
             keyboardType: TextInputType.emailAddress,
             validator: ValidationBuilder().email().maxLength(50).build(),
             decoration: const InputDecoration(
