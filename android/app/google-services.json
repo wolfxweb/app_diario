@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "202136855422",
+    "project_id": "diariy-app",
+    "storage_bucket": "diariy-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202136855422:android:e205438aa4db27078cc92f",
+        "android_client_info": {
+          "package_name": "br.com.wolfx.appdiario.app_diario"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202136855422-g57qo2hhegbkga9gu0srf82ir89vo9hn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.wolfx.appdiario.app_diario",
+            "certificate_hash": "8097c06554e320be70a1bd024efc2cae51e4ed24"
+          }
+        },
+        {
+          "client_id": "202136855422-tp5iinj7lm0g51euai1dnupioio3q432.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWZ3ohyHVZ5eS6HecOUREoR1lWGb1kNmc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202136855422-tp5iinj7lm0g51euai1dnupioio3q432.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

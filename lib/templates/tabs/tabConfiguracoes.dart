@@ -1,6 +1,7 @@
 import 'package:app_diario/bloc/blocEmail.dart';
 import 'package:app_diario/components/alert_modal.dart';
 import 'package:app_diario/components/alert_snack.dart';
+import 'package:app_diario/components/anuncio_banner.dart';
 import 'package:app_diario/templates/home_page.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,7 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: Column(
               children: [
+                AnuncioBanner(),
                 buildCardLight(context),
                 buildCardDark(context),
                 Card(
@@ -137,6 +139,7 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
   Column buildInputs(BuildContext context) {
     return Column(
       children: [
+
         SizedBox(
           //  width: MediaQuery.of(context).size.width * 0.73,
           // height: 50,

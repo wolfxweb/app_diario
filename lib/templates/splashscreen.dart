@@ -26,9 +26,11 @@ class _SplashscreenState extends State<Splashscreen> {
   List email = [];
   int status = 1;
   void initState() {
-    super.initState();
-    status = 1;
     emailList();
+    status = 1;
+    super.initState();
+
+
   }
   emailList() async {
     email = await blocEmail.getEmail();

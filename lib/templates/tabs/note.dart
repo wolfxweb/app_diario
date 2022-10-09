@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:app_diario/bloc/blocNote.dart';
 import 'package:app_diario/components/alert_snack.dart';
+import 'package:app_diario/components/anuncio_banner.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -75,6 +76,13 @@ class _NoteState extends State<TabNote> {
               ),
               child: Column(
                 children: [
+                  SizedBox(
+                    //  width: 20,
+                    height: 10,
+                    child:Container() ,
+                  ),
+
+                  AnuncioBanner(),
                 //  buildComoEstou(),
                /*   Container(
                     padding: const EdgeInsets.all(8.0),

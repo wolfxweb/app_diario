@@ -170,7 +170,7 @@ class _LoginState extends State<Login> {
   IconButton buildEmail(BuildContext context) {
     return IconButton(
       iconSize: 40,
-      icon: const Icon(Icons.email, color: Colors.white),
+      icon: const Icon(Icons.mail_lock, color: Colors.white),
       onPressed: () {
         if (emailReset.isNotEmpty) {
           recuperarSenha(context);
@@ -262,7 +262,7 @@ class buildToken extends StatelessWidget {
     return IconButton(
       iconSize: 40,
       icon: Icon(
-        Icons.password,
+        Icons.pin,
         color: Colors.white,
       ),
       onPressed: () {

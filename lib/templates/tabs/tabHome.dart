@@ -2,14 +2,12 @@ import 'dart:convert';
 
 import 'package:app_diario/bloc/blocNote.dart';
 import 'package:app_diario/components/alert_snack.dart';
-import 'package:app_diario/templates/pages/note_edit.dart';
+import 'package:app_diario/components/anuncio_banner.dart';
 import 'package:app_diario/templates/read_only_page.dart';
 import 'package:flutter/material.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/services.dart';
-//import 'package:flutter_date_picker_timeline/flutter_date_picker_timeline.dart';
-import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:calendar_timeline/calendar_timeline.dart';
+
 
 class TabHome extends StatefulWidget {
   const TabHome({Key? key}) : super(key: key);
@@ -25,12 +23,14 @@ class _TabHomeState extends State<TabHome> {
   late DateTime _selectedDate;
 
   void initState() {
+
     super.initState();
     _resetSelectedDate();
   }
   void _resetSelectedDate() {
     _selectedDate = DateTime.now();
   }
+
   @override
   Widget build(BuildContext context) {
 
@@ -45,6 +45,7 @@ class _TabHomeState extends State<TabHome> {
             //    crossAxisAlignment: CrossAxisAlignment.center,
             children: [
             //  buildData(),
+              AnuncioBanner(),
               SizedBox(
                 //  width: 20,
                 height: 10,

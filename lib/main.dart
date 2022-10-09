@@ -12,9 +12,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:stacked_themes/stacked_themes.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
-
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 Future main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   await ThemeManager.initialise();
   runApp(const MaterialApp(
       debugShowCheckedModeBanner: false,

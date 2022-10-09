@@ -15,7 +15,7 @@ class AppBarComponete {
 
 
        // Navigator.popAndPushNamed(context,'/');
-      },icon:const Icon(Icons.person_pin) ,),
+      },icon:const Icon(Icons.settings) ,),
       title: Text(
         title,
         style: const TextStyle(
