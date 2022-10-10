@@ -153,7 +153,7 @@ class _LoginState extends State<Login> {
   Text buildText(text) {
     return Text(
       text,
-      style: TextStyle(
+      style:const  TextStyle(
         fontSize: 16,
         color: Colors.white,
       ),

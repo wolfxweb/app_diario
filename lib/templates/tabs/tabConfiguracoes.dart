@@ -34,13 +34,13 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
   emailList() async {
     email = await blocEmail.getEmail();
     email.forEach((element) {
-    //  print(element);
+      //  print(element);
       setState(() {
         status = int.parse(element['status']);
         emailInput.text = element['email'].toString();
         senhalInput.text = element['pass'].toString();
         id = element['id'];
-        if(element['id'] != 0){
+        if (element['id'] != 0) {
           emailBool = false;
         }
       });
@@ -80,50 +80,30 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                           const Text(
+                            const Text(
                               "Ativa senha?",
-                              style: TextStyle(fontSize: 24),
+                              style: TextStyle(fontSize: 18),
                             ),
-                            ToggleSwitch(
-                              minWidth: 60.0,
-                              //   cornerRadius: 20.0,
-                              activeBgColors: [
-                                [Colors.green[800]!],
-                                [Colors.red[800]!]
-                              ],
-                              activeFgColor: Colors.white,
-                              inactiveBgColor: Colors.grey,
-                              inactiveFgColor: Colors.white,
-                              initialLabelIndex: status,
-                              totalSwitches: 2,
-                              labels: ['True', 'False'],
-                              radiusStyle: true,
-                              onToggle: (index) {
-                                if (emailInput.text.isEmpty && status == 1) {
-                                  alertModal.openModal(context,
-                                      "Para ativar este recurso o email de recuperação de senha deve ser informado");
-                                }
-                                setState(() {
-                                  status = index!;
-                                });
-                                saveEmail();
-                              },
-                            ),
+                            buildToggleSwitch(context),
                           ],
                         ),
                         buildSizedBox(),
                         if (status != 1)
-                        emailBool?buildInputs(context): ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              emailBool = !emailBool;
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                            // primary: cor,
-                          ),
-                          child: !emailBool?Text("Editar senha cadastrada"):Text("Cadastrar senha"),
-                        )
+                          emailBool
+                              ? buildInputs(context)
+                              : ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      emailBool = !emailBool;
+                                    });
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      // primary: cor,
+                                      ),
+                                  child: !emailBool
+                                      ? Text("Editar senha cadastrada")
+                                      : Text("Cadastrar senha"),
+                                )
                         else
                           Container(),
                       ],
@@ -136,10 +116,37 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
     );
   }
 
+  ToggleSwitch buildToggleSwitch(BuildContext context) {
+    return ToggleSwitch(
+      minWidth: 60.0,
+      //   cornerRadius: 20.0,
+      activeBgColors: [
+        [Colors.green[800]!],
+        [Colors.red[800]!]
+      ],
+      activeFgColor: Colors.white,
+      inactiveBgColor: Colors.grey,
+      inactiveFgColor: Colors.white,
+      initialLabelIndex: status,
+      totalSwitches: 2,
+      labels: ['True', 'False'],
+      radiusStyle: true,
+      onToggle: (index) {
+        if (emailInput.text.isEmpty && status == 1) {
+          alertModal.openModal(context,
+              "Para ativar este recurso o email de recuperação de senha deve ser informado");
+        }
+        setState(() {
+          status = index!;
+        });
+        saveEmail();
+      },
+    );
+  }
+
   Column buildInputs(BuildContext context) {
     return Column(
       children: [
-
         SizedBox(
           //  width: MediaQuery.of(context).size.width * 0.73,
           // height: 50,
@@ -159,7 +166,7 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
           //  height: 50,
           child: TextFormField(
             controller: senhalInput,
-            obscureText:true,
+            obscureText: true,
             keyboardType: TextInputType.emailAddress,
             validator: ValidationBuilder().email().maxLength(50).build(),
             decoration: const InputDecoration(
@@ -183,12 +190,12 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
                     color: Colors.grey,
                   ),
                   onPressed: () {
-                  //blocEmail.saveEmail(id,emailInput.text, '0', '',senhalInput.text);
-                  //saveEmail();
+                    //blocEmail.saveEmail(id,emailInput.text, '0', '',senhalInput.text);
+                    //saveEmail();
                     setState(() {
                       emailBool = !emailBool;
                     });
-                    Navigator.popAndPushNamed(context,'/configuracao');
+                    Navigator.popAndPushNamed(context, '/configuracao');
                   },
                 ),
               ),
@@ -217,15 +224,15 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
     );
   }
 
-  saveEmail()  {
+  saveEmail() {
     var st = '0';
-    if(status == 1){
+    if (status == 1) {
       st = '1';
     }
     print('status');
     print(status.runtimeType.toString());
     print('status');
-    blocEmail.saveEmail(id,emailInput.text,st,'0',senhalInput.text);
+    blocEmail.saveEmail(id, emailInput.text, st, '0', senhalInput.text);
   }
 
   Row buildRowEmail(BuildContext context) {
@@ -280,65 +287,97 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
           children: [
             const Text(
               "Themes Light",
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(fontSize: 16),
+            ),
+            SizedBox(
+              // width: 30.0,
+              height: 15.0,
+              child: Container(),
             ),
             Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    buildElevatedButton(
-                      context,
-                      'Light',
-                      'theme_1',
-                      Colors.blue,
+                    SizedBox(
+                      width: 30.0,
+                      height: 30.0,
+                      child: buildElevatedButton(
+                        context,
+                        '',
+                        'theme_1',
+                        Colors.blue,
+                      ),
                     ),
-                    buildElevatedButton(
-                      context,
-                      'Purple',
-                      'theme_2',
-                      Colors.deepPurple,
+                    SizedBox(
+                      width: 30.0,
+                      height: 30.0,
+                      child: buildElevatedButton(
+                        context,
+                        'Purple',
+                        'theme_2',
+                        Colors.deepPurple,
+                      ),
                     ),
-                    buildElevatedButton(
-                      context,
-                      'Pink',
-                      'theme_5',
-                      Colors.pink,
+                    SizedBox(
+                      width: 30.0,
+                      height: 30.0,
+                      child: buildElevatedButton(
+                        context,
+                        'Pink',
+                        'theme_5',
+                        Colors.pink,
+                      ),
                     ),
-                    buildElevatedButton(
-                      context,
-                      'LightGreen',
-                      'theme_6',
-                      Colors.lightGreen,
+                    SizedBox(
+                      width: 30.0,
+                      height: 30.0,
+                      child: buildElevatedButton(
+                        context,
+                        'LightGreen',
+                        'theme_6',
+                        Colors.lightGreen,
+                      ),
                     ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    buildElevatedButton(
-                      context,
-                      'Orange',
-                      'theme_7',
-                      Colors.orange,
+                    SizedBox(
+                      width: 30.0,
+                      height: 30.0,
+                      child: buildElevatedButton(
+                        context,
+                        'Orange',
+                        'theme_7',
+                        Colors.orange,
+                      ),
                     ),
-                    buildElevatedButton(
-                      context,
-                      'Grey',
-                      'theme_8',
-                      Colors.grey,
+                    SizedBox(
+                      width: 30.0,
+                      height: 30.0,
+                      child: buildElevatedButton(
+                        context,
+                        'Grey',
+                        'theme_8',
+                        Colors.grey,
+                      ),
                     ),
-                    buildElevatedButton(
-                      context,
-                      'Teal',
-                      'theme_9',
-                      Colors.teal,
+                    SizedBox(
+                      width: 30.0,
+                      height: 30.0,
+                      child: buildElevatedButton(
+                        context,
+                        'Teal',
+                        'theme_9',
+                        Colors.teal,
+                      ),
                     ),
-                    buildElevatedButton(
-                      context,
-                      'Brown',
-                      'theme_10',
-                      Colors.brown,
+                    SizedBox(
+                      width: 30.0,
+                      height: 30.0,
+                      child: buildElevatedButton(
+                        context,
+                        'Brown',
+                        'theme_10',
+                        Colors.brown,
+                      ),
                     ),
                   ],
                 ),
@@ -362,63 +401,95 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
           children: [
             const Text(
               "Themes Dark",
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(fontSize: 16),
+            ),
+            SizedBox(
+              // width: 30.0,
+              height: 15.0,
+              child: Container(),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                buildElevatedButton(
-                  context,
-                  'Dark',
-                  'theme_3',
-                  Colors.black54,
+                SizedBox(
+                  width: 30.0,
+                  height: 30.0,
+                  child: buildElevatedButton(
+                    context,
+                    '',
+                    'theme_3',
+                    Colors.black54,
+                  ),
                 ),
-                buildElevatedButton(
-                  context,
-                  'Purple',
-                  'theme_4',
-                  Colors.deepPurple,
+                SizedBox(
+                  width: 30.0,
+                  height: 30.0,
+                  child: buildElevatedButton(
+                    context,
+                    '',
+                    'theme_4',
+                    Colors.deepPurple,
+                  ),
                 ),
-                buildElevatedButton(
-                  context,
-                  'Pink',
-                  'theme_11',
-                  Colors.pink,
+                SizedBox(
+                  width: 30.0,
+                  height: 30.0,
+                  child: buildElevatedButton(
+                    context,
+                    '',
+                    'theme_11',
+                    Colors.pink,
+                  ),
                 ),
-                buildElevatedButton(
-                  context,
-                  'LightGreen',
-                  'theme_12',
-                  Colors.lightGreen,
+                SizedBox(
+                  width: 30.0,
+                  height: 30.0,
+                  child: buildElevatedButton(
+                    context,
+                    '',
+                    'theme_12',
+                    Colors.lightGreen,
+                  ),
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                buildElevatedButton(
-                  context,
-                  'Orange',
-                  'theme_13',
-                  Colors.orange,
+                SizedBox(
+                  width: 30.0,
+                  height: 30.0,
+                  child: buildElevatedButton(
+                    context,
+                    '',
+                    'theme_13',
+                    Colors.orange,
+                  ),
                 ),
-                buildElevatedButton(
-                  context,
-                  'Grey',
-                  'theme_14',
-                  Colors.grey,
+                SizedBox(
+                  width: 30.0,
+                  height: 30.0,
+                  child: buildElevatedButton(
+                    context,
+                    'Grey',
+                    'theme_14',
+                    Colors.grey,
+                  ),
                 ),
-                buildElevatedButton(
-                  context,
-                  'Teal',
-                  'theme_15',
-                  Colors.teal,
+                SizedBox(
+                  width: 30.0,
+                  height: 30.0,
+                  child: buildElevatedButton(
+                    context,
+                    'Teal',
+                    'theme_15',
+                    Colors.teal,
+                  ),
                 ),
-                buildElevatedButton(
-                  context,
-                  'Brown',
-                  'theme_16',
-                  Colors.brown,
+                SizedBox(
+                  width: 30.0,
+                  height: 30.0,
+                  child: buildElevatedButton(
+                    context,
+                    'Brown',
+                    'theme_16',
+                    Colors.brown,
+                  ),
                 ),
               ],
             ),

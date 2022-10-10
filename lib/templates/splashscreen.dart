@@ -52,6 +52,7 @@ class _SplashscreenState extends State<Splashscreen> {
     }else{
       Navigator.push(context, MaterialPageRoute(builder: (context) =>  Home()),);
     }
+    Navigator.push(context, MaterialPageRoute(builder: (context) =>  Login()),);
   }
   @override
   Widget build(BuildContext context) {
