@@ -52,95 +52,103 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     //12345689
-    return Scaffold(
-      backgroundColor: Colors.purple,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              margin: EdgeInsets.only(left: 30, top: 100, right: 30, bottom: 50),
-            //  height: double.infinity,
-            //  width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.purple[500],
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/img/fundo.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                margin: EdgeInsets.only(left: 30, top: 100, right: 30, bottom: 50),
+              //  height: double.infinity,
+              //  width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.purple[500],
 
-                border: Border.all(
-                  width: 1,
-                  color:Colors.purple,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
+                  border: Border.all(
+                    width: 1,
+                    color:Colors.purple,
                   ),
-                ]
-              //  borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      //width: 100,
-                      // height: 80,
-                      child: Image.asset("assets/img/Logo.png"),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
                     ),
-                    SizedBox(
-                        // width: MediaQuery.of(context).size.width * 0.15,
-                        height: 100,
-                        child: Container()),
-                   // buildInputSenha(),
-                  //  buildBtnLogin(context),
-                       Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.55,
-                           // height: 40,
-                            child: buildInputSenha()
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.15,
-                         // height: 20,
-                          child:  buildBtnLogin(context),
-                        )
+                  ]
+                //  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        //width: 100,
+                        // height: 80,
+                        child: Image.asset("assets/img/Logo.png"),
+                      ),
+                      SizedBox(
+                          // width: MediaQuery.of(context).size.width * 0.15,
+                          height: 25,
+                          child: Container()),
+                     // buildInputSenha(),
+                    //  buildBtnLogin(context),
+                         Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.55,
+                             // height: 40,
+                              child: buildInputSenha()
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.15,
+                           // height: 20,
+                            child:  buildBtnLogin(context),
+                          )
 
-                      ],
-                    ),
-                    SizedBox(
-                        // width: MediaQuery.of(context).size.width * 0.15,
-                        height: 100,
-                        child: Container()),
-                    buildText('Esqueceu a senha?'),
-                    SizedBox(
-                        // width: MediaQuery.of(context).size.width * 0.15,
-                        height: 10,
-                        child: Container()),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Column(
-                          children: [
-                            buildText('Solicitar token'),
-                            buildEmail(context),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            buildText('Já tenho o token'),
-                            buildToken(),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                      SizedBox(
+                          // width: MediaQuery.of(context).size.width * 0.15,
+                          height: 100,
+                          child: Container()),
+                      buildText('Esqueceu a senha?'),
+                      SizedBox(
+                          // width: MediaQuery.of(context).size.width * 0.15,
+                          height: 10,
+                          child: Container()),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            children: [
+                              buildText('Solicitar token'),
+                              buildEmail(context),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              buildText('Já tenho o token'),
+                              buildToken(),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
