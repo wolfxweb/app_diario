@@ -7,6 +7,7 @@ import 'package:theme_provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TabConfiguracoes extends StatefulWidget {
   const TabConfiguracoes({Key? key}) : super(key: key);
@@ -55,8 +56,8 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
       appBar: AppBar(
         // elevation: 0,
         centerTitle: false,
-        title: const Text(
-          'Configurações',
+        title:  Text(
+            AppLocalizations.of(context)!.configuracaoes,
         ),
       ),
       body: SingleChildScrollView(
@@ -80,8 +81,9 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              "Ativa senha?",
+                             Text(
+
+                              AppLocalizations.of(context)!.ativar_senha,
                               style: TextStyle(fontSize: 18),
                             ),
                             buildToggleSwitch(context),
@@ -101,8 +103,8 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
                                       // primary: cor,
                                       ),
                                   child: !emailBool
-                                      ? Text("Editar senha cadastrada")
-                                      : Text("Cadastrar senha"),
+                                      ? Text( AppLocalizations.of(context)!.edt_editando_senha)
+                                      : Text(AppLocalizations.of(context)!.senha_cadastro),
                                 )
                         else
                           Container(),
@@ -129,12 +131,12 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
       inactiveFgColor: Colors.white,
       initialLabelIndex: status,
       totalSwitches: 2,
-      labels: ['True', 'False'],
+      labels: [AppLocalizations.of(context)!.btn_ativar_senha_true, AppLocalizations.of(context)!.btn_ativar_senha_false],
       radiusStyle: true,
       onToggle: (index) {
         if (emailInput.text.isEmpty && status == 1) {
           alertModal.openModal(context,
-              "Para ativar este recurso o email de recuperação de senha deve ser informado");
+              AppLocalizations.of(context)!.ativar_senhas);
         }
         setState(() {
           status = index!;
@@ -154,9 +156,9 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
             controller: emailInput,
             keyboardType: TextInputType.emailAddress,
             validator: ValidationBuilder().email().maxLength(50).build(),
-            decoration: const InputDecoration(
+            decoration:  InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Digite o seu email',
+              hintText:  AppLocalizations.of(context)!.digite_email,
             ),
           ),
         ),
@@ -169,9 +171,9 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
             obscureText: true,
             keyboardType: TextInputType.emailAddress,
             validator: ValidationBuilder().email().maxLength(50).build(),
-            decoration: const InputDecoration(
+            decoration:  InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Digite sua senha',
+              hintText: AppLocalizations.of(context)!.digite_password,
             ),
           ),
         ),
@@ -246,9 +248,9 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
             controller: emailInput,
             keyboardType: TextInputType.emailAddress,
             validator: ValidationBuilder().email().maxLength(50).build(),
-            decoration: const InputDecoration(
+            decoration:  InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Adicione o email',
+              hintText: AppLocalizations.of(context)!.digite_email,
             ),
           ),
         ),
@@ -285,8 +287,8 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
         child: Column(
           children: [
-            const Text(
-              "Themes Light",
+             Text(
+              AppLocalizations.of(context)!.tema_light,
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(
@@ -399,8 +401,8 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
         child: Column(
           children: [
-            const Text(
-              "Themes Dark",
+             Text(
+               AppLocalizations.of(context)!.tema_dark,
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(
@@ -504,7 +506,7 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
     return ElevatedButton(
       onPressed: () {
         ThemeProvider.controllerOf(context).setTheme(thema);
-        alertSnackBar.alertSnackBar(context, cor, "Thema alterado com sucesso");
+        alertSnackBar.alertSnackBar(context, cor, AppLocalizations.of(context)!.sucesso);
       },
       style: ElevatedButton.styleFrom(
         primary: cor,

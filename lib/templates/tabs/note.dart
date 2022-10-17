@@ -44,8 +44,8 @@ class _NoteState extends State<TabNote> {
         },icon:const Icon(Icons.arrow_back) ,),
         elevation: 0,
         centerTitle: false,
-        title: const Text(
-          'Adicionando anotação',
+        title:  Text(
+          AppLocalizations.of(context)!.add_anotacao,
         ),
         actions: [
           IconButton(
@@ -58,7 +58,7 @@ class _NoteState extends State<TabNote> {
                   _textAreaController.clear();
                   _textTitulo.clear();
                   var alert = AlertSnackBar();
-                  alert.alertSnackBar(context, Colors.green,'Adicionado com sucesso');
+                  alert.alertSnackBar(context, Colors.green,AppLocalizations.of(context)!.sucesso);
                 });
               }
             },

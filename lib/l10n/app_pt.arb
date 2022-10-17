@@ -1,5 +1,5 @@
 {
-   "language":"portguês",
+   "language":"português",
    "app_title":"Anotações diarias",
    "app_bar_title":"Diario",
    "menu_button_title_1":"Inicio",
@@ -7,6 +7,30 @@
    "menu_button_title_3":"Adicionar",
    "menu_button_title_4":"Relátorio",
    "menu_button_title_5":"Config",
-   "anotacao_placeholder":"Escreva aqui..."
+   "anotacao_placeholder":"Escreva aqui...",
+   "ativar_senha":"Ativar senha?",
+   "btn_ativar_senha_true":"Sim",
+   "btn_ativar_senha_false":"Não",
+   "tema_light":"Temas light",
+   "tema_dark":"Temas dark",
+   "digite_email":"Digite o seu e-mail",
+   "digite_password":"Digite a senha",
+   "ativar_senhas":"Para ativar este recurso o email de recuperação de senha deve ser informado.",
+   "sucesso":"Ação realizada com sucesso",
+   "envio_token":"Tokem enviado para o email cadastrado",
+   "new_toke":"Código de recuperação de senha criado.",
+   "configuracaoes":"Configurações",
+   "add_anotacao":"Adiconando anotação",
+   "edt_editando":"Editando anotação",
+   "esqueceu_senha":"Esqueceu a senha?",
+   "solicitar_token":"Recuperar senha.",
+   "digitar_token":"Digite código enviado no email",
+   "ico_token":"Senha inválida",
+   "msg_recuperacao_senha_do_email":"Recuperação senha app myDiary",
+   "ja_tenho_token":"Já tenho Token",
+   "edt_editando_senha":"Editando senha",
+   "senha_cadastro":"Cadastro senha",
+   "acao_ireversivel":"Esta acão é inrevesivel",
+   "deseja_continuar":"Deseja continuar?"
 
 }

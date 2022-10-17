@@ -6,7 +6,7 @@ import 'package:app_diario/components/alert_snack.dart';
 import 'package:app_diario/templates/tabs/tabConfiguracoes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RecuperarSenha extends StatefulWidget {
   const RecuperarSenha({Key? key}) : super(key: key);
@@ -37,8 +37,7 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
   emailList() async {
     email = await blocEmail.getEmail();
     email.forEach((element) {
-      print("_RecuperarSenhaState");
-      print(element);
+
       setState(() {
         pass = element['pass'].toString();
         emailReset =element['email'].toString();
@@ -64,7 +63,7 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
             padding: const EdgeInsets.all(16.0),
             child: Container(
                //width: 100,
-               height: 300,
+               height:550,
               margin: EdgeInsets.only(left: 20, top: 100, right:20, bottom: 50),
               decoration: BoxDecoration(
                   color: Colors.purple[500],
@@ -89,13 +88,18 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
 
 
                 children: [
+                  SizedBox(
+                    //width: 100,
+                    // height: 80,
+                    child: Image.asset("assets/img/Logo.png"),
+                  ),
 
 
                   SizedBox(
                     // width: MediaQuery.of(context).size.width * 0.15,
-                      height: 50,
+                      height: 20,
                       child: Container()),
-                const   Text("Digite o codigo enviado para o email cadastrado.", style: TextStyle(color: Colors.white),),
+             //   const   Text("Digite o codigo enviado para o email cadastrado.", style: TextStyle(color: Colors.white),),
                   SizedBox(
                     // width: MediaQuery.of(context).size.width * 0.15,
                       height:20,
@@ -109,34 +113,35 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
                           // height: 40,
                           child: buildInputSenha()
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.15,
-                        // height: 20,
-                        child:  buildBtnLogin(context),
-                      )
+
 
                     ],
                   ),
+               /*   SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.15,
+                    // height: 20,
+                    child:  buildBtnLogin(context),
+                  ),*/
                   SizedBox(
                     // width: MediaQuery.of(context).size.width * 0.15,
-                      height:50,
+                      height:10,
                       child: Container()),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                   /*   Column(
-                        children: [
-                          buildText('Solicitar token'),
-                          buildEmail(context,'/recuperar_senha',Icon(Icons.email, color: Colors.white)),
-                        ],
-                      ),*/
                       Column(
                         children: [
-                        //  buildText('Inicio'),
+                          //  buildText('Inicio'),
                           buildEmail(context,'/splashscreen',Icon(Icons.undo, color: Colors.white)),
                         ],
                       ),
+                     Column(
+                        children: [
+                          buildBtnLogin(context),
+                        ],
+                      ),
+
                     ],
                   ),
                 ],
@@ -172,23 +177,23 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
       style: TextStyle(color: Colors.white),
       keyboardType: TextInputType.number,
       // validator: ValidationBuilder().email().maxLength(50).build(),
-      decoration: const InputDecoration(
+      decoration:  InputDecoration(
 
-        focusedBorder: const OutlineInputBorder(
+        focusedBorder:  const OutlineInputBorder(
           borderSide: BorderSide(color:  Colors.white, width: 1.0, style: BorderStyle.solid),
         ),
         //  fillColor: Colors.white,
         filled: true,
         // fillColor: Colors.purpleA,
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderSide: BorderSide(color:  Colors.white),
         ),
         // border: InputBorder.none
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color:  Colors.white, width: 1.0, style: BorderStyle.solid),
         ),
-        labelText: "Digite o token",
-        labelStyle:  TextStyle(
+        labelText: AppLocalizations.of(context)!.digitar_token,
+        labelStyle:  const TextStyle(
           color: Colors.white,
           //  backgroundColor: Colors.white,
         ),
@@ -201,7 +206,7 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
       //  height: 60,
       child: IconButton(
         iconSize: 40,
-        icon: Icon(
+        icon: const Icon(
           Icons.login,
           color: Colors.white,
         ),
@@ -212,7 +217,7 @@ class _RecuperarSenhaState extends State<RecuperarSenha> {
                MaterialPageRoute(builder: (context) => const TabConfiguracoes()),
              );
            }else{
-             alertSnackBar.alertSnackBar(context,Colors.red,'Código invalido');
+             alertSnackBar.alertSnackBar(context,Colors.red,AppLocalizations.of(context)!.ico_token);
            }
         },
       ),

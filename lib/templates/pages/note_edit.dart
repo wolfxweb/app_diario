@@ -17,7 +17,7 @@ import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tuple/tuple.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../universal_ui.dart';
 //import 'read_only_page.dart';
 
@@ -69,8 +69,8 @@ class _NoteEditState extends State<NoteEdit> {
        // backgroundColor: Colors.grey.shade800,
         elevation: 0,
         centerTitle: false,
-        title: const Text(
-          'Edição de anotação',
+        title:  Text(
+            AppLocalizations.of(context)!.edt_editando,
         ),
         actions: [
           IconButton(
@@ -85,7 +85,7 @@ class _NoteEditState extends State<NoteEdit> {
                var response =  blocNote.saveBlocNote(widget._id,jsonEncode(widget._textAreaController.document.toDelta().toJson()),widget._humor,widget._textTitulo.text);
               response.then((data){
                 var alert = AlertSnackBar();
-                alert.alertSnackBar(context, Colors.red,'Editado com sucesso');
+                alert.alertSnackBar(context, Colors.red,AppLocalizations.of(context)!.sucesso);
               //    print("edição da nota");
              //     print(data);
                 //  _textAreaController.clear();

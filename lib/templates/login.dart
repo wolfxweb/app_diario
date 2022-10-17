@@ -7,6 +7,7 @@ import 'package:app_diario/templates/recuperar_senha.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:math';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class Login extends StatefulWidget {
   @override
   State<Login> createState() => _LoginState();
 }
-
+//AppLocalizations.of(context)!.app_bar_title
 class _LoginState extends State<Login> {
   var _focusNode = new FocusNode();
   var sendEmail = Email();
@@ -53,7 +54,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     //12345689
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/img/fundo.png"),
           fit: BoxFit.cover,
@@ -112,19 +113,20 @@ class _LoginState extends State<Login> {
                              // height: 40,
                               child: buildInputSenha()
                           ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.15,
-                           // height: 20,
-                            child:  buildBtnLogin(context),
-                          )
+
 
                         ],
                       ),
                       SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.15,
+                        // height: 20,
+                        child:  buildBtnLogin(context),
+                      ),
+                      SizedBox(
                           // width: MediaQuery.of(context).size.width * 0.15,
-                          height: 100,
+                          height: 30,
                           child: Container()),
-                      buildText('Esqueceu a senha?'),
+                      buildText(AppLocalizations.of(context)!.esqueceu_senha),
                       SizedBox(
                           // width: MediaQuery.of(context).size.width * 0.15,
                           height: 10,
@@ -135,13 +137,13 @@ class _LoginState extends State<Login> {
                         children: [
                           Column(
                             children: [
-                              buildText('Solicitar token'),
+                              buildText(AppLocalizations.of(context)!.solicitar_token),
                               buildEmail(context),
                             ],
                           ),
                           Column(
                             children: [
-                              buildText('Já tenho o token'),
+                              buildText(AppLocalizations.of(context)!.ja_tenho_token),
                               buildToken(),
                             ],
                           ),
@@ -191,24 +193,25 @@ class _LoginState extends State<Login> {
     int randonCode = random.nextInt(100000) + 1500;
     await blocEmail.saveEmail(
         id, emailReset, state, randonCode.toString(), pass);
-    alertSnackBar.alertSnackBar(context, Colors.green, 'Código criado');
+    alertSnackBar.alertSnackBar(context, Colors.green, AppLocalizations.of(context)!.new_toke);
     var msg =
         'Digite o codigo ${randonCode} no aplicativo para criar uma nova senha.';
     await sendEmail.sendMessage(
-        msg, emailReset, 'Recuperação senha app myDiary');
+        msg, emailReset,AppLocalizations.of(context)!.msg_recuperacao_senha_do_email);
     alertSnackBar.alertSnackBar(context, Colors.green,
-        'E-mail com token de acesso enviado com sucesso!');
+        AppLocalizations.of(context)!.envio_token);
     Navigator.popAndPushNamed(context, '/recuperar_senha');
   }
 
   TextFormField buildInputSenha() {
+
     return TextFormField(
       controller: senhalInput,
       obscureText:true,
       style: TextStyle(color: Colors.white),
       keyboardType: TextInputType.emailAddress,
       // validator: ValidationBuilder().email().maxLength(50).build(),
-      decoration: const InputDecoration(
+      decoration:  InputDecoration(
 
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color:  Colors.white, width: 1.0, style: BorderStyle.solid),
@@ -216,15 +219,15 @@ class _LoginState extends State<Login> {
       //  fillColor: Colors.white,
         filled: true,
        // fillColor: Colors.purpleA,
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderSide: BorderSide(color:  Colors.white),
         ),
        // border: InputBorder.none
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color:  Colors.white, width: 1.0, style: BorderStyle.solid),
         ),
-        labelText: "Digite sua senha",
-        labelStyle:  TextStyle(
+        labelText: AppLocalizations.of(context)!.digite_password,
+        labelStyle:  const TextStyle(
           color: Colors.white,
           //  backgroundColor: Colors.white,
         ),
@@ -252,7 +255,7 @@ class _LoginState extends State<Login> {
               MaterialPageRoute(builder: (context) => const Home()),
             );
           } else {
-            alertSnackBar.alertSnackBar(context, Colors.red, 'Senha invalida');
+            alertSnackBar.alertSnackBar(context, Colors.red, AppLocalizations.of(context)!.ico_token);
           }
         },
       ),

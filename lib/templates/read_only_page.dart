@@ -11,7 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 //ReadOnlyPage
 /*
  _ReadOnlyPageState createState() => _ReadOnlyPageState();
@@ -40,8 +40,7 @@ class _ReadOnlyPageState extends State<ReadOnlyPage> {
 
   void initState() {
     super.initState();
-    print('widget.note');
-    print(widget.note);
+
     _jsonAnotacao = jsonDecode(widget.note['anotacao']);
    // _textTitulo = TextEditingController(text: widget.note['titulo']);// this.note['titulo'];
   //  _humor = widget.note['humor'];
@@ -54,8 +53,7 @@ class _ReadOnlyPageState extends State<ReadOnlyPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('widget.note');
-    print(widget.note);
+
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.grey.shade800,
@@ -64,8 +62,8 @@ class _ReadOnlyPageState extends State<ReadOnlyPage> {
         },icon:const Icon(Icons.arrow_back) ,),
         elevation: 0,
         centerTitle: false,
-        title: const Text(
-          'Editar anotação',
+        title:  Text(
+          AppLocalizations.of(context)!.edt_editando,
         ),
         actions: [
           IconButton(
@@ -78,7 +76,7 @@ class _ReadOnlyPageState extends State<ReadOnlyPage> {
                 //  _textAreaController.clear();
                  // _textTitulo.clear();
                   var alert = AlertSnackBar();
-                  alert.alertSnackBar(context, Colors.green,'Alterado com sucesso');
+                  alert.alertSnackBar(context, Colors.green,AppLocalizations.of(context)!.sucesso);
                 });
               }
             },

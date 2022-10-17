@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
              routes: {
                 "/": (_) => const Home(),
                 "/splashscreen": (BuildContext context) =>Splashscreen(),
-           //   "/note": (BuildContext context) => Home(),
+                "/home": (BuildContext context) => Home(),
                 "/recuperar_senha": (BuildContext context) => RecuperarSenha(),
                 "/configuracao": (BuildContext context) =>  TabConfiguracoes(),
               },

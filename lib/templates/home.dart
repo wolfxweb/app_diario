@@ -27,15 +27,6 @@ class Home extends StatelessWidget {
       child: Scaffold(
           appBar:  header.getAppBar(AppLocalizations.of(context)!.app_bar_title, context),
           body: TabHome(),
-        /*  body: const TabBarView(
-            children: [
-              TabHome(),
-              TabRelatorios(),
-              TabConfiguracoes(),
-            ],
-          ),
-         */
-         // bottomNavigationBar: const ButtomNavidateBarComponent(),
         floatingActionButton:FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){

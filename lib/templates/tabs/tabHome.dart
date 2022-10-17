@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'package:app_diario/bloc/blocNote.dart';
 import 'package:app_diario/components/alert_snack.dart';
 import 'package:app_diario/components/anuncio_banner.dart';
+import 'package:app_diario/templates/home.dart';
 import 'package:app_diario/templates/read_only_page.dart';
+import 'package:app_diario/templates/tabs/tabConfiguracoes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:calendar_timeline/calendar_timeline.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TabHome extends StatefulWidget {
   const TabHome({Key? key}) : super(key: key);
@@ -194,28 +196,32 @@ class _TabHomeState extends State<TabHome> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text("Esta açõe e irevesivel."),
-                    content: Text("Deseja continuar?"),
+                    title: Text(AppLocalizations.of(context)!.acao_ireversivel),
+                    content: Text(AppLocalizations.of(context)!.deseja_continuar),
                     actions: [
                       // cancelButton,
                       // continueButton,
 
                       TextButton(
-                        child: Text("Não"),
+                        child: Text(AppLocalizations.of(context)!.btn_ativar_senha_false),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                       TextButton(
-                        child: Text("Sim"),
+                        child: Text(AppLocalizations.of(context)!.btn_ativar_senha_true),
                         onPressed: () {
                           var response =
                               blocNote.deleteNote(snapshot.data[i]['id']);
                           response.then((res) {
                             var alert = AlertSnackBar();
                             alert.alertSnackBar(
-                                context, Colors.green, 'Removido com sucesso');
-                            Navigator.popAndPushNamed(context, '/');
+                                context, Colors.green, AppLocalizations.of(context)!.sucesso);
+                          //  Navigator.popAndPushNamed(context, '/home');
+
+                            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
+                              return   Home();
+                            }));
                           });
                         },
                       ),
@@ -234,7 +240,7 @@ class _TabHomeState extends State<TabHome> {
                   return ReadOnlyPage(snapshot.data[i]);
                 }));
               },
-              icon:  Icon(Icons.edit,
+              icon:  const Icon(Icons.edit,
                // color: Theme.of(context).primaryColor!='0xff673ab7'?Colors.white:Colors.green,
               ),
           ),
@@ -242,54 +248,4 @@ class _TabHomeState extends State<TabHome> {
       ),
     );
   }
-/*
-  Text buildTextDiaAno(AsyncSnapshot<dynamic> snapshot, int i, int inicio,
-      int fim, double sizeFont) {
-    return Text(
-      snapshot.data[i]['data_hora'].toString().substring(inicio, fim),
-      style: TextStyle(
-        fontSize: sizeFont,
-      ),
-    );
-  }
-  */
-/*
-  Text buildTextMes(AsyncSnapshot<dynamic> snapshot, int i) {
-    var mesRef = snapshot.data[i]['data_hora'].toString().substring(5, 7);
-    var mes;
-    if (mesRef == '01') {
-      mes = 'jan';
-    } else if (mesRef == '02') {
-      mes = 'fev';
-    } else if (mesRef == '03') {
-      mes = 'mar';
-    } else if (mesRef == '04') {
-      mes = 'abr';
-    } else if (mesRef == '05') {
-      mes = 'mai';
-    } else if (mesRef == '06') {
-      mes = 'jun';
-    } else if (mesRef == '07') {
-      mes = 'jul';
-    } else if (mesRef == '08') {
-      mes = 'ago';
-    } else if (mesRef == '09') {
-      mes = 'set';
-    } else if (mesRef == '10') {
-      mes = 'ou';
-    } else if (mesRef == '11') {
-      mes = 'nov';
-    } else if (mesRef == '12') {
-      mes = 'dez';
-    }
-    return Text(
-      mes,
-      style: const TextStyle(fontSize: 18),
-    );
-  }
-*/
-  /*_listaNotas() {
-    return blocNote.listaAgrupadaData();
-  }
-  */
 }
