@@ -217,11 +217,19 @@ class _TabHomeState extends State<TabHome> {
                             var alert = AlertSnackBar();
                             alert.alertSnackBar(
                                 context, Colors.green, AppLocalizations.of(context)!.sucesso);
-                          //  Navigator.popAndPushNamed(context, '/home');
+                            print('Olá estou aqui ');
+                            setState((){
+                            //  blocNote.anotacaoController
+                              blocNote.listaAnotacao();
+                            });
+                            Navigator.pop(context, true);
 
-                            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
-                              return   Home();
+                        //    Navigator.popAndPushNamed(context, '/homeTab');
+
+                       /*     Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
+                              return   TabHome();
                             }));
+                            */
                           });
                         },
                       ),

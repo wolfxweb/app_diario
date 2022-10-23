@@ -1,0 +1,5 @@
+diary_keystore.ks
+Alias appDiary
+Senha @appDiary
+
+@appDiary

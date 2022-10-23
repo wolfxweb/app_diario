@@ -8,7 +8,10 @@ import 'dart:ui';
 
 import 'package:app_diario/class/json/noteToJson.dart';
 import 'package:app_diario/sqLite/dbNote.dart';
+import 'package:app_diario/templates/tabs/tabHome.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -88,7 +91,6 @@ class BlocNote implements BlocBase{
          listaAnotacao();
 
        });
-
 
    }catch (_) {
 

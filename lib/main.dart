@@ -7,6 +7,7 @@ import 'package:app_diario/templates/recuperar_senha.dart';
 import 'package:app_diario/templates/splashscreen.dart';
 import 'package:app_diario/templates/tabs/tabAgenda.dart';
 import 'package:app_diario/templates/tabs/tabConfiguracoes.dart';
+import 'package:app_diario/templates/tabs/tabHome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:stacked_themes/stacked_themes.dart';
@@ -59,7 +60,7 @@ class MyApp extends StatelessWidget {
              routes: {
                 "/": (_) => const Home(),
                 "/splashscreen": (BuildContext context) =>Splashscreen(),
-                "/home": (BuildContext context) => Home(),
+                "/homeTab": (BuildContext context) => const TabHome(),
                 "/recuperar_senha": (BuildContext context) => RecuperarSenha(),
                 "/configuracao": (BuildContext context) =>  TabConfiguracoes(),
               },
