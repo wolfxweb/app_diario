@@ -1,0 +1,4 @@
+storePassword=diario
+keyPassword=diario
+keyAlias=diario
+storeFile=./app/google_key/upload-keystore.jks
