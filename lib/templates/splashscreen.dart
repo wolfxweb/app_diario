@@ -33,15 +33,21 @@ class _SplashscreenState extends State<Splashscreen> {
 
   }
   emailList() async {
-    var status =  await blocEmail.getEmail();
+    List status =  await blocEmail.getEmail();
     print("st");
-    print(status);
-    if(status[0]['email'] == '' && status[0]['status'] == '0'){
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>  Home()),);
-    }else  if(status[0]['email'] != '' && status[0]['status'] == '1'){
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>  Home()),);
-    }else if(status[0]['email'] != '' && status[0]['status'] == '0'){
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>  Login()),);
+    print(status.isNotEmpty);
+    if(status.isNotEmpty) {
+      print("iff");
+      print(status);
+      if (status[0]['email'] == '' && status[0]['status']! == '0') {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Home()),);
+      } else if (status[0]['email'] != '' && status[0]['status'] == '1') {
+        Navigator.push( context, MaterialPageRoute(builder: (context) => Home()),);
+      } else if (status[0]['email'] != '' && status[0]['status'] == '0') {
+        Navigator.push( context, MaterialPageRoute(builder: (context) => Login()),);
+      }
+    }else{
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()),);
     }
 
 
