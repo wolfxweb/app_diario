@@ -24,6 +24,7 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
   var emailBool = true;
   List email = [];
   int status = 1;
+  String emailbd = "";
   TextEditingController emailInput = TextEditingController();
   TextEditingController senhalInput = TextEditingController();
   void initState() {
@@ -35,9 +36,9 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
   emailList() async {
     email = await blocEmail.getEmail();
     email.forEach((element) {
-      print("element");
-      print(element);
+
       setState(() {
+        emailbd = element['email'].toString();
         status = int.parse(element['status']);
         emailInput.text = element['email'].toString();
         senhalInput.text = element['pass'].toString();
@@ -148,7 +149,7 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
         emailSalvo.then((response)=>{
 
           if(response == 1){
-            alert.alertSnackBar(context, Colors.green, AppLocalizations.of(context)!.sucesso)
+           // alert.alertSnackBar(context, Colors.green, AppLocalizations.of(context)!.sucesso)
           }
         });
       },
@@ -248,7 +249,10 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
     if (status == 1) {
       st = '1';
     }
-   return  await blocEmail.saveEmail(id, emailInput.text, st, '0', senhalInput.text);
+    if(emailInput.text != '' || emailbd.isNotEmpty){
+      return  await blocEmail.saveEmail(id, emailInput.text, st, '0', senhalInput.text);
+    }
+
   }
 
   Row buildRowEmail(BuildContext context) {

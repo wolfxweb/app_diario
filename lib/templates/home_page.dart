@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:app_diario/bloc/blocEmail.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:filesystem_picker/filesystem_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -29,11 +30,28 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   QuillController? _controller;
   final FocusNode _focusNode = FocusNode();
+  var blocEmail = BlocEmail();
+  List email = [];
+  int status = 0;
+  String emailInput ="";
+  String id ="";
 
   @override
   void initState() {
     super.initState();
     _loadFromAssets();
+    emailList();
+  }
+  emailList() async {
+    print('element home email');
+    email = await blocEmail.getEmail();
+    email.forEach((element) {
+      print('element home');
+      print(element);
+
+
+    });
+
   }
 
   Future<void> _loadFromAssets() async {

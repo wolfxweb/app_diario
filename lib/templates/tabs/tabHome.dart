@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:app_diario/bloc/blocEmail.dart';
 import 'package:app_diario/bloc/blocNote.dart';
 import 'package:app_diario/components/alert_snack.dart';
 import 'package:app_diario/components/anuncio_banner.dart';
 import 'package:app_diario/templates/home.dart';
+import 'package:app_diario/templates/login.dart';
 import 'package:app_diario/templates/read_only_page.dart';
 import 'package:app_diario/templates/tabs/tabConfiguracoes.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +22,18 @@ class TabHome extends StatefulWidget {
 
 class _TabHomeState extends State<TabHome> {
   var blocNote = BlocNote();
+  BlocEmail blocEmail = BlocEmail();
   var dias = 4;
   var texto ='opa';
   late DateTime _selectedDate;
-
+  List email = [];
+  int status = 0;
+  String emailInput ="";
+  String id ="";
   void initState() {
-
     super.initState();
     _resetSelectedDate();
+
   }
   void _resetSelectedDate() {
     _selectedDate = DateTime.now();

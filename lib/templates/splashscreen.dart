@@ -3,6 +3,8 @@
 
 
 
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:app_diario/bloc/blocEmail.dart';
 import 'package:app_diario/components/alert_snack.dart';
 import 'package:app_diario/templates/home.dart';
@@ -23,34 +25,31 @@ class _SplashscreenState extends State<Splashscreen> {
 
   var blocEmail = BlocEmail();
   var id = null;
-  //List email = [];
+  List email = [];
   int status = 1;
   void initState() {
-    emailList();
+
     status = 1;
     super.initState();
-
+    emailList();
 
   }
   emailList() async {
-    List status =  await blocEmail.getEmail();
-    print("st");
-    print(status.isNotEmpty);
-    if(status.isNotEmpty) {
-      print("iff");
-      print(status);
-      if (status[0]['email'] == '' && status[0]['status']! == '0') {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Home()),);
-      } else if (status[0]['email'] != '' && status[0]['status'] == '1') {
-        Navigator.push( context, MaterialPageRoute(builder: (context) => Home()),);
-      } else if (status[0]['email'] != '' && status[0]['status'] == '0') {
-        Navigator.push( context, MaterialPageRoute(builder: (context) => Login()),);
-      }
+    email = await blocEmail.getEmail();
+
+    if(email.isNotEmpty){
+      email.forEach((element) {
+        if(element['status'] == '0'){
+          if(element['email'] != ''){
+             Navigator.push( context, MaterialPageRoute(builder: (context) => Login()),);
+          }
+        }else{
+          Navigator.push( context, MaterialPageRoute(builder: (context) => Home()),);
+        }
+      });
     }else{
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()),);
+      Navigator.push( context, MaterialPageRoute(builder: (context) => const Home()),);
     }
-
-
   }
   @override
   Widget build(BuildContext context) {
