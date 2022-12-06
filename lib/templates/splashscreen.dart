@@ -23,7 +23,7 @@ class _SplashscreenState extends State<Splashscreen> {
 
   var blocEmail = BlocEmail();
   var id = null;
-  List email = [];
+  //List email = [];
   int status = 1;
   void initState() {
     emailList();
@@ -33,26 +33,18 @@ class _SplashscreenState extends State<Splashscreen> {
 
   }
   emailList() async {
-    email = await blocEmail.getEmail();
-    if(email.isNotEmpty){
-      email.forEach((element) {
-        setState(() {
-          if(element['id'] != 0){
-            status = int.parse(element['status']);
-            if(status == 0){
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>  Login()),
-              );
-            }else{
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>  TabConfiguracoes()),
-              );
-            }
-          }
-        });
-      });
-    }else{
+    var status =  await blocEmail.getEmail();
+    print("st");
+    print(status);
+    if(status[0]['email'] == '' && status[0]['status'] == '0'){
       Navigator.push(context, MaterialPageRoute(builder: (context) =>  Home()),);
+    }else  if(status[0]['email'] != '' && status[0]['status'] == '1'){
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>  Home()),);
+    }else if(status[0]['email'] != '' && status[0]['status'] == '0'){
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>  Login()),);
     }
-    Navigator.push(context, MaterialPageRoute(builder: (context) =>  Login()),);
+
+
   }
   @override
   Widget build(BuildContext context) {

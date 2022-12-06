@@ -40,9 +40,11 @@ class BlocEmail implements BlocBase{
     }catch (_) {}
   }
 
-  getEmail(){
+  getEmail()async{
     try{
-      return  db.getEmail();
+      var data = await db.getEmail();
+      return data;
+   //   return  db.getEmail();
     }catch (_) {}
 
   }
