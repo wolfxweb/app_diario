@@ -11,8 +11,6 @@ class ModelEmail{
   Future<Database?> get db => DbHelper.getInstance().db;
 
   Future<int> save(dados) async {
-    print('dados');
-    print(dados);
     var dbClient = await db;
     return  await dbClient!.insert('recuperacao_senha', dados, conflictAlgorithm: ConflictAlgorithm.replace);
   }

@@ -28,15 +28,11 @@ class BlocEmail implements BlocBase{
   }
   saveEmail(id,email,status,code,pass)async{
 
-    print(id);
-    print(email);
-    print(status);
-    print(code);
-    print(pass);
 
     try{
       var js = emailToJson(id, email,status,code,pass);
-      return  await db.save(js.toJson());
+
+     return  await db.save(js.toJson());
     }catch (_) {}
   }
 

@@ -35,7 +35,8 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
   emailList() async {
     email = await blocEmail.getEmail();
     email.forEach((element) {
-      //  print(element);
+      print("element");
+      print(element);
       setState(() {
         status = int.parse(element['status']);
         emailInput.text = element['email'].toString();
@@ -46,8 +47,7 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
         }
       });
     });
-    print('email tab confg');
-    print(email);
+
   }
 
   @override
@@ -141,7 +141,16 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
         setState(() {
           status = index!;
         });
-        saveEmail();
+      //  saveEmail();
+        var emailSalvo = saveEmail();
+
+        var alert = AlertSnackBar();
+        emailSalvo.then((response)=>{
+
+          if(response == 1){
+            alert.alertSnackBar(context, Colors.green, AppLocalizations.of(context)!.sucesso)
+          }
+        });
       },
     );
   }
@@ -212,9 +221,17 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
                   ),
                   onPressed: () {
                     // blocEmail.saveEmail(id,emailInput.text, '0', '',senhalInput.text);
-                    saveEmail();
+                   var emailSalvo = saveEmail();
+
+                   var alert = AlertSnackBar();
+                   emailSalvo.then((response)=>{
+
+                     if(response == 1){
+                       alert.alertSnackBar(context, Colors.green, AppLocalizations.of(context)!.sucesso)
+                     }
+                   });
                     setState(() {
-                      emailBool = !emailBool;
+                    //  emailBool = !emailBool;
                     });
                   },
                 ),
@@ -226,15 +243,12 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
     );
   }
 
-  saveEmail() {
+  saveEmail() async{
     var st = '0';
     if (status == 1) {
       st = '1';
     }
-    print('status');
-    print(status.runtimeType.toString());
-    print('status');
-    blocEmail.saveEmail(id, emailInput.text, st, '0', senhalInput.text);
+   return  await blocEmail.saveEmail(id, emailInput.text, st, '0', senhalInput.text);
   }
 
   Row buildRowEmail(BuildContext context) {
@@ -249,7 +263,7 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
             keyboardType: TextInputType.emailAddress,
             validator: ValidationBuilder().email().maxLength(50).build(),
             decoration:  InputDecoration(
-              border: OutlineInputBorder(),
+              border: const OutlineInputBorder(),
               hintText: AppLocalizations.of(context)!.digite_email,
             ),
           ),
@@ -500,6 +514,7 @@ class _TabConfiguracoesState extends State<TabConfiguracoes> {
       ),
     );
   }
+
 
   ElevatedButton buildElevatedButton(
       BuildContext context, String titulo, String thema, cor) {

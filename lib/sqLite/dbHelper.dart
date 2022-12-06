@@ -27,8 +27,6 @@ class DbHelper{
   Future _initDb() async {
     String databasesPath = await getDatabasesPath();
     String path = join(databasesPath, 'appDiaryWoflx.db');
-    print("db $path");
-
     var db = await openDatabase(path, version: 1, onCreate: _onCreate, onUpgrade: _onUpgrade);
     return db;
   }
@@ -39,16 +37,14 @@ class DbHelper{
     List<String> sqls = s.split(";");
     for(String sql in sqls) {
       if(sql.trim().isNotEmpty) {
-        print("sql: $sql");
+
         await db.execute(sql);
       }
     }
   }
 
   Future<FutureOr<void>> _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    print("_onUpgrade: oldVersion: $oldVersion > newVersion: $newVersion");
-
-    if(oldVersion == 1 && newVersion == 2) {
+      if(oldVersion == 1 && newVersion == 2) {
       await db.execute("alter table add column NOVA TEXT");
     }
   }

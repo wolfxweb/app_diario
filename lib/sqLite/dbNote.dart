@@ -32,8 +32,6 @@ class DbNote{
     return list;
   }
   Future<List<dynamic>> listaFiltoData(data) async {
-    print('listaFiltoData');
-    print(data);
     final dbClient = await db;
     List<dynamic> list = await dbClient!.rawQuery("select * from anotacoes WHERE data_hora Like '${'%$data%'}' ");
     return list;

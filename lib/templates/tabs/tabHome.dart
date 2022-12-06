@@ -73,7 +73,7 @@ class _TabHomeState extends State<TabHome> {
                     lastDate: DateTime.now().add(Duration(days: 365 * 1)),
                     onDateSelected: (date) {
                       blocNote.listaFiltoDataAnotacao(date.toString().substring(0, 10));
-                      print(Theme.of(context).primaryColor);
+
                       setState(() {
                         _selectedDate = date;
                        // blocNote.listaFiltoDataAnotacao(date.toString().substring(0, 10));
@@ -100,7 +100,7 @@ class _TabHomeState extends State<TabHome> {
               StreamBuilder(
                 stream: blocNote.anotacaoController,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                 // print(snapshot.data);
+
                   if(snapshot.hasData){
                     return builCardNote(snapshot);
                   }else{
@@ -217,7 +217,7 @@ class _TabHomeState extends State<TabHome> {
                             var alert = AlertSnackBar();
                             alert.alertSnackBar(
                                 context, Colors.green, AppLocalizations.of(context)!.sucesso);
-                            print('Olá estou aqui ');
+
                             setState((){
                             //  blocNote.anotacaoController
                               blocNote.listaAnotacao();
