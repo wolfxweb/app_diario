@@ -93,11 +93,17 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+
                       SizedBox(
-                        //width: 100,
+                       /// width: 100,
                         // height: 80,
-                        child: Image.asset("assets/img/Logo.png"),
+                       // child: Image.asset("assets/img/play_store_512.png"),
+
+                        child:  Text("Login",
+                          style: buildTextStyle(),),
+
                       ),
+
                       SizedBox(
                           // width: MediaQuery.of(context).size.width * 0.15,
                           height: 25,
@@ -113,15 +119,23 @@ class _LoginState extends State<Login> {
                              // height: 40,
                               child: buildInputSenha()
                           ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            // height: 20,
+                            child:  buildBtnLogin(context),
+                          ),
 
 
                         ],
                       ),
+                      /*
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.15,
                         // height: 20,
                         child:  buildBtnLogin(context),
                       ),
+
+                       */
                       SizedBox(
                           // width: MediaQuery.of(context).size.width * 0.15,
                           height: 30,
