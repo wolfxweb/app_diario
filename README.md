@@ -1,2 +1,1 @@
-# app_diario
- Aplicativo diario flutter
+#  Aplicativo diario flutter
